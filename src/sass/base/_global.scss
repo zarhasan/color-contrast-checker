@@ -1,0 +1,161 @@
+[x-cloak] {
+  display: none;
+}
+
+[v-cloak] {
+  display: none !important;
+}
+
+:root {
+  --swiper-theme-color: #2a8bbc;
+}
+
+body {
+  background-color: color(background);
+  color: color(main);
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+svg[id^="mdi"],
+svg[class^="mdi"] {
+  fill: currentColor;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+[data-src] {
+  position: relative;
+  opacity: 0;
+  transition: opacity 400ms easing(out-expo);
+
+  &.loaded {
+    opacity: 1;
+  }
+}
+
+span.inlineSVGIcon {
+  line-height: 0;
+}
+
+a {
+  display: inline-flex;
+  color: var(--color-main);
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+.site-content {
+  padding-top: $header-height;
+}
+
+.sectionHead--centered {
+  width: 100%;
+  text-align: center;
+  padding: 0 0 2.5rem 0;
+  color: var(--color-text);
+
+  .title {
+    margin: 0;
+    font-size: 3rem;
+  }
+
+  a {
+    color: var(--color-main);
+    font-size: 1rem;
+  }
+}
+
+.sectionHead--default {
+  @extend .flex-start;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--color-text);
+  border-radius: var(--border-radius-half);
+  transform-origin: center;
+
+  .title {
+    margin: 0;
+    color: inherit;
+    font-size: 3rem;
+  }
+
+  a {
+    color: var(--color-main);
+    border-radius: var(--border-radius-half);
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    margin-left: auto;
+    text-transform: uppercase;
+    font-weight: bold;
+    outline: none;
+
+    &:hover,
+    &:focus {
+      background-color: var(--color-highlight-main);
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    .using-tab &:focus {
+      box-shadow: 0 0 0 0.05rem var(--color-main);
+    }
+  }
+}
+
+.pageTitle {
+  @extend .flex-center;
+  width: 100%;
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--color-text);
+  transform-origin: center;
+
+  h1 {
+    margin: 0;
+  }
+
+  .archive-description {
+    width: 100%;
+  }
+}
+
+.sectionHead--account {
+  width: 100%;
+  text-align: left;
+  color: var(--color-text);
+  border-radius: var(--border-radius-half);
+  transform-origin: center;
+
+  .title {
+    margin: 0;
+    padding: 2.5rem 0 2.5rem 0;
+    color: inherit;
+  }
+}
+
+// Customize text selection
+::selection {
+  background: color(main);
+  color: color(background);
+}
+
+::-moz-selection {
+  background: color(main);
+  color: color(background);
+}

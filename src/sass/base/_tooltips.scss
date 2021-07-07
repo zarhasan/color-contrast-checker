@@ -1,0 +1,49 @@
+.tippy-box[data-theme~="primary"] {
+  @include font-size(p);
+  background-color: color(main);
+  color: color(background);
+  border-color: color(main);
+  font-weight: 600;
+  border-radius: 0.25rem;
+
+  &[data-placement^="top"] > .tippy-arrow::before {
+    border-top-color: color(main);
+  }
+
+  &[data-placement^="bottom"] > .tippy-arrow::before {
+    border-bottom-color: color(main);
+  }
+
+  &[data-placement^="right"] > .tippy-arrow::before {
+    border-right-color: color(main);
+  }
+
+  &[data-placement^="left"] > .tippy-arrow::before {
+    border-left-color: color(main);
+  }
+}
+
+.tippy-box[data-theme~="accent"] {
+  @include font-size(p);
+  background-color: color(accent);
+  color: color(background);
+  border-color: color(accent);
+  font-weight: 600;
+  border-radius: 0.25rem;
+
+  &[data-placement^="top"] > .tippy-arrow::before {
+    border-top-color: color(accent);
+  }
+
+  &[data-placement^="bottom"] > .tippy-arrow::before {
+    border-bottom-color: color(accent);
+  }
+
+  &[data-placement^="right"] > .tippy-arrow::before {
+    border-right-color: color(accent);
+  }
+
+  &[data-placement^="left"] > .tippy-arrow::before {
+    border-left-color: color(accent);
+  }
+}
