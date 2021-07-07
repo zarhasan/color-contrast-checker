@@ -384,7 +384,7 @@ Grid
   position: absolute;
 }
 
-.flex-center, .contrast_checker__result, .contrast_checker__form, .button--icon .helper, .buttonIcon--secondary .helper, .buttonIcon--primary .helper, .popup .closePopup .helper, .pageTitle {
+.flex-center, .contrast_checker__result, .contrast_checker__picker-button, .contrast_checker__form, .button--icon .helper, .buttonIcon--secondary .helper, .buttonIcon--primary .helper, .popup .closePopup .helper, .pageTitle {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -922,9 +922,29 @@ html {
     font-size: 36px;
   }
 }
+@font-face {
+  font-family: "WorkSans";
+  font-weight: 500;
+  src: url(../fonts/WorkSans-Regular.ttf);
+}
+@font-face {
+  font-family: "WorkSans";
+  font-weight: 500;
+  src: url(../fonts/WorkSans-Medium.ttf);
+}
+@font-face {
+  font-family: "WorkSans";
+  font-weight: 600;
+  src: url(../fonts/WorkSans-SemiBold.ttf);
+}
+@font-face {
+  font-family: "WorkSans";
+  font-weight: 700;
+  src: url(../fonts/WorkSans-Bold.ttf);
+}
 body {
   font-size: 1rem;
-  font-family: "Open Sans";
+  font-family: "WorkSans";
   font-weight: 400;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -935,42 +955,42 @@ body {
 
 h1,
 .h1 {
-  font-family: "Vollkorn";
+  font-family: "WorkSans";
   font-weight: 500;
   font-size: 3.052rem;
 }
 
 h2,
 .h2 {
-  font-family: "Vollkorn";
+  font-family: "WorkSans";
   font-weight: 500;
   font-size: 2.441rem;
 }
 
 h3,
 .h3 {
-  font-family: "Vollkorn";
+  font-family: "WorkSans";
   font-weight: 500;
   font-size: 1.953rem;
 }
 
 h4,
 .h4 {
-  font-family: "Vollkorn";
+  font-family: "WorkSans";
   font-weight: 500;
   font-size: 1.563rem;
 }
 
 h5,
 .h5 {
-  font-family: "Vollkorn";
+  font-family: "WorkSans";
   font-weight: 500;
   font-size: 1.25rem;
 }
 
 h6,
 .h6 {
-  font-family: "Vollkorn";
+  font-family: "WorkSans";
   font-weight: 500;
   font-size: 1rem;
 }
@@ -1245,29 +1265,48 @@ img, img.img-responsive {
   top: 0;
   background-color: #212121;
   color: #ffffff;
-  padding: 2.5rem 5rem 7.5rem;
+  padding: 2.5rem 5rem 5rem;
 }
 .contrast_checker__input {
   margin: 0 1rem;
+  position: relative;
 }
-.contrast_checker__input label {
+.contrast_checker__input > label {
   font-size: 0.9rem;
   font-weight: 600;
   display: block;
   margin-bottom: 0.5rem;
 }
-.contrast_checker__input input {
+.contrast_checker__input > input {
   width: 20rem;
   height: 3rem;
   background-color: transparent;
   color: #ffffff;
   border: 0.15rem solid rgba(255, 255, 255, 0.25);
-  border-radius: 0.2rem;
+  border-radius: 0.5em;
   outline: none;
   padding: 0 1rem;
+  transition: all 300ms cubic-bezier(0.19, 1, 0.22, 1);
 }
-.contrast_checker__input input:focus {
+.contrast_checker__input > input:focus {
   border-color: #ffffff;
+}
+.contrast_checker__input .photoshop-picker {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: 100;
+}
+.contrast_checker__picker-button {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.25em;
+  border: none;
+  background-color: #2e2e2e;
+  color: #ffffff;
 }
 .contrast_checker__result {
   font-size: 1.953rem;
@@ -1275,12 +1314,16 @@ img, img.img-responsive {
   height: 7.5rem;
   position: absolute;
   bottom: -3.25rem;
-  left: 50%;
-  margin-left: -3.25rem;
+  left: 10vw;
   border-radius: 100%;
   background-color: #4caf50;
   border: 0.5rem solid #f5f5f5;
+  z-index: 1;
 }
+.contrast_checker__picker-wrap {
+  z-index: 100;
+}
+
 .contrast_checker__elements {
   width: 100%;
   height: auto;

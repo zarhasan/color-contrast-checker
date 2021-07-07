@@ -1,18 +1,19 @@
 import React, { useContext } from "react";
+import tinycolor from "tinycolor2";
 import { AppContext } from "../store";
 
 const Text = () => {
   const { backgroundColor, foregroundColor } = useContext(AppContext);
 
-  const brgba = backgroundColor.rgba;
-  const frgba = foregroundColor.rgba;
+  const bhex = tinycolor(backgroundColor).toHexString();
+  const fhex = tinycolor(foregroundColor).toHexString();
 
   return (
     <div
       className="contrast_checker__text"
       style={{
-        backgroundColor: `rgba(${brgba.r}, ${brgba.g}, ${brgba.b}, ${brgba.a})`,
-        color: `rgba(${frgba.r}, ${frgba.g}, ${frgba.b}, ${frgba.a})`,
+        backgroundColor: bhex,
+        color: fhex,
       }}
     >
       <h1>Heading 1</h1>

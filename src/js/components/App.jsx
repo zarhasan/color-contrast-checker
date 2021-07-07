@@ -1,17 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import tinycolor from "tinycolor2";
 import { AppContext } from "../store";
 import Form from "./Form";
 import Text from "./Text";
 
 const App = () => {
-  const [backgroundColor, setBackgroundColor] = useState({
-    rgba: {},
-    luminance: 0,
-  });
-  const [foregroundColor, setForegroundColor] = useState({
-    rgba: {},
-    luminance: 0,
-  });
+  const [backgroundColor, setBackgroundColor] = useState(null);
+  const [foregroundColor, setForegroundColor] = useState();
 
   const [contrastRatio, setContrastRatio] = useState("");
 
@@ -23,6 +18,12 @@ const App = () => {
     contrastRatio,
     setContrastRatio,
   };
+
+  useEffect(() => {
+    setBackgroundColor(tinycolor("#ffffff"));
+    setForegroundColor(tinycolor("#757575"));
+    setContrastRatio(tinycolor.readability(backgroundColor, foregroundColor));
+  }, []);
 
   return (
     <AppContext.Provider value={context}>

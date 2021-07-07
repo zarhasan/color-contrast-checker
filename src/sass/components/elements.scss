@@ -1,0 +1,14 @@
+.contrast_checker {
+  &__elements {
+    width: 100%;
+    height: auto;
+    padding: 20rem $page-padding 5rem;
+    background-color: color(background-darker);
+  }
+
+  &__text {
+    padding: 2.5rem;
+    border-radius: 1rem;
+    background-color: color(background);
+  }
+}

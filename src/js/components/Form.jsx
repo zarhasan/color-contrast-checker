@@ -1,8 +1,9 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState, useRef } from "react";
 import tinycolor from "tinycolor2";
-import { calculateContrastRatio } from "../helper";
 import { AppContext } from "../store";
-
+import { PhotoshopPicker } from "react-color";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiEdit2 } from "react-icons/fi";
 const Form = () => {
   const {
     backgroundColor,
@@ -12,6 +13,16 @@ const Form = () => {
     setForegroundColor,
     setContrastRatio,
   } = useContext(AppContext);
+
+  const [colorPickerBackground, setColorPickerBackground] = useState("");
+  const [colorPickerForeground, setColorPickerForeground] = useState("");
+
+  const [showColorPickerBackground, setShowColorPickerBackground] =
+    useState(false);
+  const [showColorPickerForeground, setShowColorPickerForeground] =
+    useState(false);
+
+  const backgroundColorInput = useRef(null);
 
   let resultColor = "#43a047";
 
@@ -25,9 +36,7 @@ const Form = () => {
 
   useEffect(() => {
     if (backgroundColor && foregroundColor) {
-      setContrastRatio(
-        calculateContrastRatio(backgroundColor, foregroundColor)
-      );
+      setContrastRatio(tinycolor.readability(backgroundColor, foregroundColor));
     }
   }, [backgroundColor, foregroundColor]);
 
@@ -43,24 +52,91 @@ const Form = () => {
         <div className="contrast_checker__input">
           <label htmlFor="backgroundColor">Background Color</label>
           <input
+            ref={backgroundColorInput}
             type="text"
             name="backgroundColor"
             id="backgroundColor"
             onChange={(e) => {
+              if (!e.target.value) {
+                return;
+              }
               const color = tinycolor(e.target.value);
 
-              if (!color.isValid) {
+              if (!color.isValid()) {
                 return;
               }
 
-              setBackgroundColor({
-                rgba: color.toRgb(),
-                luminance: color.getLuminance(),
-              });
+              setColorPickerBackground(`#${color.toHex()}`);
+              setBackgroundColor(color);
             }}
           />
-        </div>
 
+          <button
+            className="contrast_checker__picker-button"
+            style={{
+              backgroundColor: colorPickerBackground,
+              color:
+                tinycolor.readability(colorPickerBackground, "#fff") < 4.5
+                  ? "#000"
+                  : "#fff",
+            }}
+            onClick={(e) => {
+              setShowColorPickerBackground(true);
+            }}
+          >
+            <FiEdit2 />
+          </button>
+
+          <AnimatePresence>
+            {showColorPickerBackground && (
+              <motion.div
+                className="contrast_checker__picker-wrap"
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 50, opacity: 0 }}
+                transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+              >
+                {showColorPickerBackground && (
+                  <PhotoshopPicker
+                    color={colorPickerBackground}
+                    onChange={(pickedColor, e) => {
+                      setColorPickerBackground(pickedColor.hex);
+
+                      const color = tinycolor(pickedColor.hex);
+
+                      if (!color.isValid()) {
+                        return;
+                      }
+
+                      backgroundColorInput.current.value = color.toHexString();
+
+                      setBackgroundColor(color);
+                    }}
+                    onAccept={(e) => {
+                      setShowColorPickerBackground(false);
+                    }}
+                    onCancel={(e) => {
+                      setShowColorPickerBackground(false);
+                    }}
+                  />
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+        <div className="contrast_checker__swap">
+          <button
+            onClick={(e) => {
+              const background = backgroundColor;
+              const foreground = foregroundColor;
+
+              setBackgroundColor(foreground);
+              setForegroundColor(background);
+            }}
+          >
+            Swap
+          </button>
+        </div>
         <div className="contrast_checker__input">
           <label htmlFor="foregroundColor">Foreground Color</label>
           <input
@@ -68,20 +144,67 @@ const Form = () => {
             name="foregroundColor"
             id="foregroundColor"
             onChange={(e) => {
-              const color = tinycolor(e.target.value);
-
-              if (!color.isValid) {
+              if (!e.target.value) {
                 return;
               }
+              const color = tinycolor(e.target.value);
 
-              setForegroundColor({
-                rgba: color.toRgb(),
-                luminance: color.getLuminance(),
-              });
+              if (!color.isValid()) {
+                return;
+              }
+              setForegroundColor(color);
             }}
           />
-        </div>
 
+          <button
+            className="contrast_checker__picker-button"
+            style={{
+              backgroundColor: colorPickerForeground,
+              color:
+                tinycolor.readability(colorPickerForeground, "#fff") < 4.5
+                  ? "#000"
+                  : "#fff",
+            }}
+            onClick={(e) => {
+              setShowColorPickerForeground(true);
+            }}
+          >
+            <FiEdit2 />
+          </button>
+
+          <AnimatePresence>
+            {showColorPickerForeground && (
+              <motion.div
+                className="contrast_checker__picker-wrap"
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 50, opacity: 0 }}
+                transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+              >
+                <PhotoshopPicker
+                  color={colorPickerForeground}
+                  onChange={(pickedColor, e) => {
+                    setColorPickerForeground(pickedColor.hex);
+
+                    const color = tinycolor(pickedColor.hex);
+
+                    if (!color.isValid()) {
+                      return;
+                    }
+
+                    setForegroundColor(color);
+                  }}
+                  onAccept={(e) => {
+                    setShowColorPickerForeground(false);
+                  }}
+                  onCancel={(e) => {
+                    setShowColorPickerForeground(false);
+                  }}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
         <div
           className="contrast_checker__result"
           style={{

@@ -8,4 +8,7 @@ mix.browserSync({
 mix
   .js("src/js/app.js", "dist/js")
   .react()
-  .sass("src/sass/style.scss", "dist/css");
+  .sass("src/sass/style.scss", "dist/css")
+  .options({
+    processCssUrls: false,
+  });

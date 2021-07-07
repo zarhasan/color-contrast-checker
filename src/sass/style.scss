@@ -16,7 +16,6 @@
 --------------------------------------------------------------*/
 @import "base/global";
 @import "base/animations";
-@import "base/forms";
 
 /*--------------------------------------------------------------
 # Partials
@@ -33,3 +32,4 @@
 # Components
 --------------------------------------------------------------*/
 @import "components/form";
+@import "components/elements.scss";
