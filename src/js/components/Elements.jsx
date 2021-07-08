@@ -2,6 +2,16 @@ import React, { useContext } from "react";
 import { AppContext } from "../store";
 import { FiX, FiCheck } from "react-icons/fi";
 
+const Elements = () => {
+  return (
+    <div className="contrast_checker__elements">
+      <h2 className="contrast_checker__title">Examples</h2>
+      <Text />
+      <Form />
+    </div>
+  );
+};
+
 const Text = () => {
   const { backgroundColor, foregroundColor } = useContext(AppContext);
 
@@ -38,6 +48,36 @@ const Text = () => {
   );
 };
 
+const Form = () => {
+  const { backgroundColor, foregroundColor } = useContext(AppContext);
+
+  return (
+    <form
+      className="contrast_checker__demoForm"
+      style={{
+        backgroundColor: backgroundColor ? backgroundColor.toHexString() : "",
+        color: foregroundColor ? foregroundColor.toHexString() : "",
+      }}
+    >
+      <label htmlFor="inputElement">
+        Label <Chip requirement={7.1} />
+      </label>
+      <div className="contrast_checker__demoInput">
+        <input
+          type="text"
+          name="inputElement"
+          id="inputElement"
+          disabled="true"
+          style={{
+            borderColor: foregroundColor ? foregroundColor.toHexString() : "",
+          }}
+        />
+        <Chip requirement={3.1} />
+      </div>
+    </form>
+  );
+};
+
 const Chip = ({ requirement }) => {
   const { contrastRatio } = useContext(AppContext);
 
@@ -54,4 +94,4 @@ const Chip = ({ requirement }) => {
   );
 };
 
-export default Text;
+export default Elements;

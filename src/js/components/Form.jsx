@@ -69,7 +69,7 @@ const InputBackgroundColor = () => {
                 <Listbox.Option
                   key={format.id}
                   value={format}
-                  disabled={format.unavailable}
+                  disabled={format.name === selectedFormat.name}
                   as={Fragment}
                 >
                   {({ active, selected }) => (

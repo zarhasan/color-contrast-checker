@@ -1996,7 +1996,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tinycolor2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(tinycolor2__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store */ "./src/js/store.js");
 /* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Form */ "./src/js/components/Form.jsx");
-/* harmony import */ var _Text__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Text */ "./src/js/components/Text.jsx");
+/* harmony import */ var _Elements__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Elements */ "./src/js/components/Elements.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -2075,20 +2075,143 @@ var App = function App() {
     inputColorForeground: inputColorForeground
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    setBackgroundColor(tinycolor2__WEBPACK_IMPORTED_MODULE_1___default()("#131820"));
-    setForegroundColor(tinycolor2__WEBPACK_IMPORTED_MODULE_1___default()("#4db6ac"));
+    setBackgroundColor(tinycolor2__WEBPACK_IMPORTED_MODULE_1___default()("#ffffff"));
+    setForegroundColor(tinycolor2__WEBPACK_IMPORTED_MODULE_1___default()("#00796b"));
     setContrastRatio(tinycolor2__WEBPACK_IMPORTED_MODULE_1___default().readability(backgroundColor, foregroundColor));
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_store__WEBPACK_IMPORTED_MODULE_2__.AppContext.Provider, {
     value: context,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Form__WEBPACK_IMPORTED_MODULE_3__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      className: "contrast_checker__elements",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Text__WEBPACK_IMPORTED_MODULE_4__.default, {})
-    })]
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Form__WEBPACK_IMPORTED_MODULE_3__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Elements__WEBPACK_IMPORTED_MODULE_4__.default, {})]
   });
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
+
+/***/ }),
+
+/***/ "./src/js/components/Elements.jsx":
+/*!****************************************!*\
+  !*** ./src/js/components/Elements.jsx ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store */ "./src/js/store.js");
+/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.esm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+
+var Elements = function Elements() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "contrast_checker__elements",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+      className: "contrast_checker__title",
+      children: "Examples"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Text, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Form, {})]
+  });
+};
+
+var Text = function Text() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_store__WEBPACK_IMPORTED_MODULE_1__.AppContext),
+      backgroundColor = _useContext.backgroundColor,
+      foregroundColor = _useContext.foregroundColor;
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "contrast_checker__text",
+    style: {
+      backgroundColor: backgroundColor ? backgroundColor.toHexString() : "",
+      color: foregroundColor ? foregroundColor.toHexString() : ""
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h1", {
+      children: ["Heading 1 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chip, {
+        requirement: 4.5
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h2", {
+      children: ["Heading 2 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chip, {
+        requirement: 4.5
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h3", {
+      children: ["Heading 3 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chip, {
+        requirement: 4.5
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h4", {
+      children: ["Heading 3 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chip, {
+        requirement: 4.5
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h5", {
+      children: ["Heading 5 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chip, {
+        requirement: 4.5
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h6", {
+      children: ["Heading 6 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chip, {
+        requirement: 7.1
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("p", {
+      children: ["Paragraph ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chip, {
+        requirement: 7.1
+      })]
+    })]
+  });
+};
+
+var Form = function Form() {
+  var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_store__WEBPACK_IMPORTED_MODULE_1__.AppContext),
+      backgroundColor = _useContext2.backgroundColor,
+      foregroundColor = _useContext2.foregroundColor;
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
+    className: "contrast_checker__demoForm",
+    style: {
+      backgroundColor: backgroundColor ? backgroundColor.toHexString() : "",
+      color: foregroundColor ? foregroundColor.toHexString() : ""
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("label", {
+      htmlFor: "inputElement",
+      children: ["Label ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chip, {
+        requirement: 7.1
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: "contrast_checker__demoInput",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+        type: "text",
+        name: "inputElement",
+        id: "inputElement",
+        disabled: "true",
+        style: {
+          borderColor: foregroundColor ? foregroundColor.toHexString() : ""
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chip, {
+        requirement: 3.1
+      })]
+    })]
+  });
+};
+
+var Chip = function Chip(_ref) {
+  var requirement = _ref.requirement;
+
+  var _useContext3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_store__WEBPACK_IMPORTED_MODULE_1__.AppContext),
+      contrastRatio = _useContext3.contrastRatio;
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+      className: "contrast_checker__chip".concat(contrastRatio > requirement ? " pass" : " fail"),
+      children: contrastRatio > requirement ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_icons_fi__WEBPACK_IMPORTED_MODULE_3__.FiCheck, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_icons_fi__WEBPACK_IMPORTED_MODULE_3__.FiX, {})
+    })
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Elements);
 
 /***/ }),
 
@@ -2220,7 +2343,7 @@ var InputBackgroundColor = function InputBackgroundColor() {
             children: formats.map(function (format) {
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_6__.Listbox.Option, {
                 value: format,
-                disabled: format.unavailable,
+                disabled: format.name === selectedFormat.name,
                 as: react__WEBPACK_IMPORTED_MODULE_0__.Fragment,
                 children: function children(_ref) {
                   var active = _ref.active,
@@ -2527,89 +2650,6 @@ var Form = function Form() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Form);
-
-/***/ }),
-
-/***/ "./src/js/components/Text.jsx":
-/*!************************************!*\
-  !*** ./src/js/components/Text.jsx ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store */ "./src/js/store.js");
-/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.esm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-
-
-
-
-
-var Text = function Text() {
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_store__WEBPACK_IMPORTED_MODULE_1__.AppContext),
-      backgroundColor = _useContext.backgroundColor,
-      foregroundColor = _useContext.foregroundColor;
-
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "contrast_checker__text",
-    style: {
-      backgroundColor: backgroundColor ? backgroundColor.toHexString() : "",
-      color: foregroundColor ? foregroundColor.toHexString() : ""
-    },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h1", {
-      children: ["Heading 1 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chip, {
-        requirement: 4.5
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h2", {
-      children: ["Heading 2 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chip, {
-        requirement: 4.5
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h3", {
-      children: ["Heading 3 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chip, {
-        requirement: 4.5
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h4", {
-      children: ["Heading 3 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chip, {
-        requirement: 4.5
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h5", {
-      children: ["Heading 5 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chip, {
-        requirement: 4.5
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h6", {
-      children: ["Heading 6 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chip, {
-        requirement: 7.1
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("p", {
-      children: ["Paragraph ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chip, {
-        requirement: 7.1
-      })]
-    })]
-  });
-};
-
-var Chip = function Chip(_ref) {
-  var requirement = _ref.requirement;
-
-  var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_store__WEBPACK_IMPORTED_MODULE_1__.AppContext),
-      contrastRatio = _useContext2.contrastRatio;
-
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-      className: "contrast_checker__chip".concat(contrastRatio > requirement ? " pass" : " fail"),
-      children: contrastRatio > requirement ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_icons_fi__WEBPACK_IMPORTED_MODULE_3__.FiCheck, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_icons_fi__WEBPACK_IMPORTED_MODULE_3__.FiX, {})
-    })
-  });
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Text);
 
 /***/ }),
 

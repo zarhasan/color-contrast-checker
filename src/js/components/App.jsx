@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import tinycolor from "tinycolor2";
 import { AppContext } from "../store";
 import Form from "./Form";
-import Text from "./Text";
+import Elements from "./Elements";
 
 const App = () => {
   const [backgroundColor, setBackgroundColor] = useState(null);
@@ -41,17 +41,15 @@ const App = () => {
   };
 
   useEffect(() => {
-    setBackgroundColor(tinycolor("#131820"));
-    setForegroundColor(tinycolor("#4db6ac"));
+    setBackgroundColor(tinycolor("#ffffff"));
+    setForegroundColor(tinycolor("#00796b"));
     setContrastRatio(tinycolor.readability(backgroundColor, foregroundColor));
   }, []);
 
   return (
     <AppContext.Provider value={context}>
       <Form />
-      <div className="contrast_checker__elements">
-        <Text />
-      </div>
+      <Elements />
     </AppContext.Provider>
   );
 };
