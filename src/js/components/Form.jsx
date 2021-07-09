@@ -30,7 +30,7 @@ const InputBackground = () => {
   );
 };
 
-const InputForegroundColor = () => {
+const InputForeground = () => {
   const {
     foregroundColor,
     showColorPickerForeground,
@@ -136,7 +136,7 @@ const Form = () => {
     >
       <InputBackground />
       <ButtonSwap />
-      <InputForegroundColor />
+      <InputForeground />
       <ContrastResult />
     </form>
   );

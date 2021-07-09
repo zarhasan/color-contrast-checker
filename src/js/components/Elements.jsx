@@ -116,6 +116,7 @@ const Form = () => {
         message="WCAG 2.1 color contrast test for small text"
       >
         <button
+          disabled={true}
           style={{
             color: backgroundColor.toHexString(),
             backgroundColor: foregroundColor.toHexString(),

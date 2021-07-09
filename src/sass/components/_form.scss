@@ -6,13 +6,11 @@
     width: 100%;
     background-color: color(text);
     color: color(background);
-    padding: 2.5rem 5rem 4rem;
+    padding: 10rem 5rem 10rem;
     z-index: 1000;
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
 
     @include device(tablet) {
-      padding: 2.5rem 2.5rem 4rem;
+      padding: 5rem $page-padding 5rem;
     }
 
     @include device(mobile) {
@@ -26,7 +24,7 @@
     position: relative;
 
     > label {
-      @include font-size(p);
+      @include font-size(h6);
       font-weight: 600;
       display: block;
       margin-bottom: 0.5rem;
@@ -48,6 +46,10 @@
         outline: none;
         padding: 0 1rem;
         transition: all 300ms easing(out-expo);
+      }
+
+      .focused & {
+        border-color: rgba(color(background), 0.5);
       }
     }
 
@@ -138,7 +140,7 @@
     background-color: material-color("green", "500");
     border: 0.5rem solid color(background-darker);
 
-    @include device(mobileAndTablet) {
+    @include device(mobile) {
       left: $page-padding;
       margin-left: 0;
     }
@@ -178,6 +180,12 @@
       width: 21rem !important;
       z-index: 100;
     }
+
+    @include device(mobile) {
+      .photoshop-picker {
+        width: 100vw - $page-padding * 2 !important;
+      }
+    }
   }
 
   @include device(mobile) {
@@ -191,12 +199,6 @@
         > input {
           flex-grow: 1;
         }
-      }
-    }
-
-    &__picker-wrap {
-      .photoshop-picker {
-        width: calc(100vw - 5rem) !important;
       }
     }
 

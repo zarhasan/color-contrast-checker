@@ -1992,13 +1992,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var tinycolor2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tinycolor2 */ "./node_modules/tinycolor2/tinycolor.js");
-/* harmony import */ var tinycolor2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(tinycolor2__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store */ "./src/js/store.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store */ "./src/js/store.js");
+/* harmony import */ var react_icons_go__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-icons/go */ "./node_modules/react-icons/go/index.esm.js");
+/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.esm.js");
+/* harmony import */ var react_use__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-use */ "./node_modules/react-use/esm/useLocalStorage.js");
+/* harmony import */ var tinycolor2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tinycolor2 */ "./node_modules/tinycolor2/tinycolor.js");
+/* harmony import */ var tinycolor2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(tinycolor2__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Form */ "./src/js/components/Form.jsx");
 /* harmony import */ var _Elements__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Elements */ "./src/js/components/Elements.jsx");
-/* harmony import */ var react_icons_go__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-icons/go */ "./node_modules/react-icons/go/index.esm.js");
-/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.esm.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -2022,18 +2023,25 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+var colors = [["#16161a", "#ff8906"], ["#232946", "#eebbc3"], ["#004643", "#f9bc60"], ["#55423d", "#ffc0ad"], ["#000000", "#7f5af0"]];
+
 var App = function App() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(tinycolor2__WEBPACK_IMPORTED_MODULE_1___default()("#ffffff")),
+  var _useLocalStorage = (0,react_use__WEBPACK_IMPORTED_MODULE_6__.default)("colorIndex", 0),
+      _useLocalStorage2 = _slicedToArray(_useLocalStorage, 2),
+      colorsIndex = _useLocalStorage2[0],
+      setColorIndex = _useLocalStorage2[1];
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(tinycolor2__WEBPACK_IMPORTED_MODULE_2___default()(colors[colorsIndex][0])),
       _useState2 = _slicedToArray(_useState, 2),
       backgroundColor = _useState2[0],
       setBackgroundColor = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(tinycolor2__WEBPACK_IMPORTED_MODULE_1___default()("#00796b")),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(tinycolor2__WEBPACK_IMPORTED_MODULE_2___default()(colors[colorsIndex][1])),
       _useState4 = _slicedToArray(_useState3, 2),
       foregroundColor = _useState4[0],
       setForegroundColor = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(tinycolor2__WEBPACK_IMPORTED_MODULE_1___default().readability(backgroundColor, foregroundColor)),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(tinycolor2__WEBPACK_IMPORTED_MODULE_2___default().readability(backgroundColor, foregroundColor)),
       _useState6 = _slicedToArray(_useState5, 2),
       contrastRatio = _useState6[0],
       setContrastRatio = _useState6[1];
@@ -2060,6 +2068,13 @@ var App = function App() {
 
   var inputColorBackground = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var inputColorForeground = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (colorsIndex >= 0 && colorsIndex < colors.length - 1) {
+      setColorIndex(parseInt(colorsIndex) + 1);
+    } else {
+      setColorIndex(0);
+    }
+  }, []);
   var context = {
     backgroundColor: backgroundColor,
     setBackgroundColor: setBackgroundColor,
@@ -2078,13 +2093,13 @@ var App = function App() {
     inputColorBackground: inputColorBackground,
     inputColorForeground: inputColorForeground
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_store__WEBPACK_IMPORTED_MODULE_2__.AppContext.Provider, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_store__WEBPACK_IMPORTED_MODULE_1__.AppContext.Provider, {
     value: context,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Form__WEBPACK_IMPORTED_MODULE_3__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Elements__WEBPACK_IMPORTED_MODULE_4__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("a", {
       className: "githubLink",
       href: "https://github.com/zarhasan/color-contrast-checker",
       target: "_blank",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_icons_go__WEBPACK_IMPORTED_MODULE_6__.GoMarkGithub, {}), "GitHub", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_icons_fi__WEBPACK_IMPORTED_MODULE_7__.FiExternalLink, {})]
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_icons_go__WEBPACK_IMPORTED_MODULE_7__.GoMarkGithub, {}), "GitHub", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_icons_fi__WEBPACK_IMPORTED_MODULE_8__.FiExternalLink, {})]
     })]
   });
 };
@@ -2222,6 +2237,7 @@ var Form = function Form() {
       requirement: 4.5,
       message: "WCAG 2.1 color contrast test for small text",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        disabled: true,
         style: {
           color: backgroundColor.toHexString(),
           backgroundColor: foregroundColor.toHexString()
@@ -2311,7 +2327,7 @@ var InputBackground = function InputBackground() {
   });
 };
 
-var InputForegroundColor = function InputForegroundColor() {
+var InputForeground = function InputForeground() {
   var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_store__WEBPACK_IMPORTED_MODULE_2__.AppContext),
       foregroundColor = _useContext2.foregroundColor,
       showColorPickerForeground = _useContext2.showColorPickerForeground,
@@ -2403,7 +2419,7 @@ var Form = function Form() {
     onSubmit: function onSubmit(e) {
       e.preventDefault();
     },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(InputBackground, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(ButtonSwap, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(InputForegroundColor, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(ContrastResult, {})]
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(InputBackground, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(ButtonSwap, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(InputForeground, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(ContrastResult, {})]
   });
 };
 
@@ -2425,13 +2441,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var tinycolor2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tinycolor2 */ "./node_modules/tinycolor2/tinycolor.js");
 /* harmony import */ var tinycolor2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(tinycolor2__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/components/AnimatePresence/index.js");
-/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/render/dom/motion.js");
-/* harmony import */ var _headlessui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @headlessui/react */ "./node_modules/@headlessui/react/dist/components/listbox/listbox.esm.js");
 /* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash/debounce */ "./node_modules/lodash/debounce.js");
 /* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_debounce__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.esm.js");
+/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/components/AnimatePresence/index.js");
+/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/render/dom/motion.js");
+/* harmony import */ var _headlessui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @headlessui/react */ "./node_modules/@headlessui/react/dist/components/listbox/listbox.esm.js");
+/* harmony import */ var react_icons_md__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-icons/md */ "./node_modules/react-icons/md/index.esm.js");
 /* harmony import */ var react_color__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-color */ "./node_modules/react-color/es/index.js");
+/* harmony import */ var react_use__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-use */ "./node_modules/react-use/esm/useClickAway.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -2444,6 +2461,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -2497,6 +2515,15 @@ var Input = function Input(props) {
       editing = _useState4[0],
       setEditing = _useState4[1];
 
+  var picker = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var inputOuter = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  (0,react_use__WEBPACK_IMPORTED_MODULE_5__.default)(picker, function (e) {
+    if (inputOuter.current.contains(e.target)) {
+      return;
+    }
+
+    toggleColorPicker(false);
+  });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setColorPicker("#".concat(color.toHex()));
     formats.forEach(function (format, index) {
@@ -2518,6 +2545,7 @@ var Input = function Input(props) {
   }, [selectedFormat, colorPicker]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: "contrast_checker__input",
+    ref: inputOuter,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
       htmlFor: id,
       children: title
@@ -2525,16 +2553,16 @@ var Input = function Input(props) {
       className: "contrast_checker__input-inner",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "contrast_checker__format",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_headlessui_react__WEBPACK_IMPORTED_MODULE_5__.Listbox, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_headlessui_react__WEBPACK_IMPORTED_MODULE_6__.Listbox, {
           value: selectedFormat,
           onChange: setSelectedFormat,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_5__.Listbox.Button, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_6__.Listbox.Button, {
             className: "contrast_checker__format-button",
             children: selectedFormat.name
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_5__.Listbox.Options, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_6__.Listbox.Options, {
             className: "contrast_checker__format-dropdown",
             children: formats.map(function (format) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_5__.Listbox.Option, {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_6__.Listbox.Option, {
                 value: format,
                 disabled: format.name === selectedFormat.name,
                 as: react__WEBPACK_IMPORTED_MODULE_0__.Fragment,
@@ -2557,9 +2585,11 @@ var Input = function Input(props) {
         id: id,
         onFocus: function onFocus(e) {
           setEditing(true);
+          inputOuter.current.classList.add("focused");
         },
         onBlur: function onBlur(e) {
           setEditing(false);
+          inputOuter.current.classList.remove("focused");
         },
         onChange: lodash_debounce__WEBPACK_IMPORTED_MODULE_2___default()(function (e) {
           if (!e.target.value) {
@@ -2583,10 +2613,11 @@ var Input = function Input(props) {
         onClick: function onClick(e) {
           showColorPicker ? toggleColorPicker(false) : toggleColorPicker(true);
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_icons_fi__WEBPACK_IMPORTED_MODULE_6__.FiEdit2, {})
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_icons_md__WEBPACK_IMPORTED_MODULE_7__.MdColorize, {})
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(framer_motion__WEBPACK_IMPORTED_MODULE_7__.AnimatePresence, {
-      children: showColorPicker && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(framer_motion__WEBPACK_IMPORTED_MODULE_8__.motion.div, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(framer_motion__WEBPACK_IMPORTED_MODULE_8__.AnimatePresence, {
+      children: showColorPicker && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(framer_motion__WEBPACK_IMPORTED_MODULE_9__.motion.div, {
+        ref: picker,
         className: "contrast_checker__picker-wrap",
         initial: {
           y: 50,
@@ -66683,6 +66714,186 @@ exports.typeOf = typeOf;
 if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/react-is/cjs/react-is.development.js");
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/react-use/esm/misc/util.js":
+/*!*************************************************!*\
+  !*** ./node_modules/react-use/esm/misc/util.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "noop": () => (/* binding */ noop),
+/* harmony export */   "on": () => (/* binding */ on),
+/* harmony export */   "off": () => (/* binding */ off),
+/* harmony export */   "isBrowser": () => (/* binding */ isBrowser),
+/* harmony export */   "isNavigator": () => (/* binding */ isNavigator)
+/* harmony export */ });
+var noop = function () { };
+function on(obj) {
+    var args = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        args[_i - 1] = arguments[_i];
+    }
+    if (obj && obj.addEventListener) {
+        obj.addEventListener.apply(obj, args);
+    }
+}
+function off(obj) {
+    var args = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        args[_i - 1] = arguments[_i];
+    }
+    if (obj && obj.removeEventListener) {
+        obj.removeEventListener.apply(obj, args);
+    }
+}
+var isBrowser = typeof window !== 'undefined';
+var isNavigator = typeof navigator !== 'undefined';
+
+
+/***/ }),
+
+/***/ "./node_modules/react-use/esm/useClickAway.js":
+/*!****************************************************!*\
+  !*** ./node_modules/react-use/esm/useClickAway.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _misc_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./misc/util */ "./node_modules/react-use/esm/misc/util.js");
+
+
+var defaultEvents = ['mousedown', 'touchstart'];
+var useClickAway = function (ref, onClickAway, events) {
+    if (events === void 0) { events = defaultEvents; }
+    var savedCallback = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(onClickAway);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+        savedCallback.current = onClickAway;
+    }, [onClickAway]);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+        var handler = function (event) {
+            var el = ref.current;
+            el && !el.contains(event.target) && savedCallback.current(event);
+        };
+        for (var _i = 0, events_1 = events; _i < events_1.length; _i++) {
+            var eventName = events_1[_i];
+            (0,_misc_util__WEBPACK_IMPORTED_MODULE_1__.on)(document, eventName, handler);
+        }
+        return function () {
+            for (var _i = 0, events_2 = events; _i < events_2.length; _i++) {
+                var eventName = events_2[_i];
+                (0,_misc_util__WEBPACK_IMPORTED_MODULE_1__.off)(document, eventName, handler);
+            }
+        };
+    }, [events, ref]);
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useClickAway);
+
+
+/***/ }),
+
+/***/ "./node_modules/react-use/esm/useLocalStorage.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/react-use/esm/useLocalStorage.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _misc_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./misc/util */ "./node_modules/react-use/esm/misc/util.js");
+
+
+var useLocalStorage = function (key, initialValue, options) {
+    if (!_misc_util__WEBPACK_IMPORTED_MODULE_1__.isBrowser) {
+        return [initialValue, _misc_util__WEBPACK_IMPORTED_MODULE_1__.noop, _misc_util__WEBPACK_IMPORTED_MODULE_1__.noop];
+    }
+    if (!key) {
+        throw new Error('useLocalStorage key may not be falsy');
+    }
+    var deserializer = options
+        ? options.raw
+            ? function (value) { return value; }
+            : options.deserializer
+        : JSON.parse;
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    var initializer = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(function (key) {
+        try {
+            var serializer = options ? (options.raw ? String : options.serializer) : JSON.stringify;
+            var localStorageValue = localStorage.getItem(key);
+            if (localStorageValue !== null) {
+                return deserializer(localStorageValue);
+            }
+            else {
+                initialValue && localStorage.setItem(key, serializer(initialValue));
+                return initialValue;
+            }
+        }
+        catch (_a) {
+            // If user is in private mode or has storage restriction
+            // localStorage can throw. JSON.parse and JSON.stringify
+            // can throw, too.
+            return initialValue;
+        }
+    });
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    var _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () { return initializer.current(key); }), state = _a[0], setState = _a[1];
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect)(function () { return setState(initializer.current(key)); }, [key]);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    var set = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (valOrFunc) {
+        try {
+            var newState = typeof valOrFunc === 'function' ? valOrFunc(state) : valOrFunc;
+            if (typeof newState === 'undefined')
+                return;
+            var value = void 0;
+            if (options)
+                if (options.raw)
+                    if (typeof newState === 'string')
+                        value = newState;
+                    else
+                        value = JSON.stringify(newState);
+                else if (options.serializer)
+                    value = options.serializer(newState);
+                else
+                    value = JSON.stringify(newState);
+            else
+                value = JSON.stringify(newState);
+            localStorage.setItem(key, value);
+            setState(deserializer(value));
+        }
+        catch (_a) {
+            // If user is in private mode or has storage restriction
+            // localStorage can throw. Also JSON.stringify can throw.
+        }
+    }, [key, setState]);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    var remove = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
+        try {
+            localStorage.removeItem(key);
+            setState(undefined);
+        }
+        catch (_a) {
+            // If user is in private mode or has storage restriction
+            // localStorage can throw.
+        }
+    }, [key, setState]);
+    return [state, set, remove];
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useLocalStorage);
 
 
 /***/ }),

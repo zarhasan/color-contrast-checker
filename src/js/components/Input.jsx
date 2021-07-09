@@ -1,11 +1,11 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment, useRef } from "react";
 import tinycolor from "tinycolor2";
+import debounce from "lodash/debounce";
 import { motion, AnimatePresence } from "framer-motion";
 import { Listbox } from "@headlessui/react";
-import debounce from "lodash/debounce";
-
-import { FiEdit2 } from "react-icons/fi";
+import { MdColorize } from "react-icons/md";
 import { PhotoshopPicker } from "react-color";
+import { useClickAway } from "react-use";
 
 const formats = [
   { id: 1, name: "hex", unavailable: false },
@@ -31,6 +31,17 @@ const Input = (props) => {
   const [selectedFormat, setSelectedFormat] = useState(formats[0]);
   const [editing, setEditing] = useState(false);
 
+  const picker = useRef(null);
+  const inputOuter = useRef(null);
+
+  useClickAway(picker, (e) => {
+    if (inputOuter.current.contains(e.target)) {
+      return;
+    }
+
+    toggleColorPicker(false);
+  });
+
   useEffect(() => {
     setColorPicker(`#${color.toHex()}`);
 
@@ -54,7 +65,7 @@ const Input = (props) => {
   }, [selectedFormat, colorPicker]);
 
   return (
-    <div className="contrast_checker__input">
+    <div className="contrast_checker__input" ref={inputOuter}>
       <label htmlFor={id}>{title}</label>
 
       <div className="contrast_checker__input-inner">
@@ -93,9 +104,11 @@ const Input = (props) => {
           id={id}
           onFocus={(e) => {
             setEditing(true);
+            inputOuter.current.classList.add("focused");
           }}
           onBlur={(e) => {
             setEditing(false);
+            inputOuter.current.classList.remove("focused");
           }}
           onChange={debounce((e) => {
             if (!e.target.value) {
@@ -124,13 +137,14 @@ const Input = (props) => {
               : toggleColorPicker(true);
           }}
         >
-          <FiEdit2 />
+          <MdColorize />
         </button>
       </div>
 
       <AnimatePresence>
         {showColorPicker && (
           <motion.div
+            ref={picker}
             className="contrast_checker__picker-wrap"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
