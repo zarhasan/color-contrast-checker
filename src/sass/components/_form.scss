@@ -1,17 +1,24 @@
 .contrast_checker {
   &__form {
     @extend .flex-center;
+    position: relative;
     align-items: flex-start;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
+    width: 100%;
     background-color: color(text);
     color: color(background);
     padding: 2.5rem 5rem 4rem;
     z-index: 1000;
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
+
+    @include device(tablet) {
+      padding: 2.5rem 2.5rem 4rem;
+    }
+
+    @include device(mobile) {
+      padding: 5rem $page-padding;
+      justify-content: flex-start;
+    }
   }
 
   &__input {
@@ -41,6 +48,16 @@
         outline: none;
         padding: 0 1rem;
         transition: all 300ms easing(out-expo);
+      }
+    }
+
+    @include device(tablet) {
+      margin: 0;
+
+      &-inner {
+        > input {
+          width: 12.5rem;
+        }
       }
     }
   }
@@ -83,7 +100,7 @@
       position: absolute;
       left: 0;
       top: 100%;
-      z-index: 100;
+      z-index: 1100;
       background-color: lighten(color(text), 5%);
       border-bottom-left-radius: 0.25em;
       border-bottom-right-radius: 0.25em;
@@ -164,11 +181,6 @@
   }
 
   @include device(mobile) {
-    &__form {
-      padding: 2.5rem 2.5rem 5rem;
-      justify-content: flex-start;
-    }
-
     &__input {
       width: 100%;
       margin: 0;

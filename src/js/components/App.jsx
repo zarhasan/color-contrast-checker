@@ -50,7 +50,7 @@ const App = () => {
       <Elements />
       <a
         className="githubLink"
-        href="https://github.com/KhizarWeb/color-contrast-checker"
+        href="https://github.com/zarhasan/color-contrast-checker"
         target="_blank"
       >
         <GoMarkGithub />

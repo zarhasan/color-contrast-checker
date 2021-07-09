@@ -2082,7 +2082,7 @@ var App = function App() {
     value: context,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Form__WEBPACK_IMPORTED_MODULE_3__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Elements__WEBPACK_IMPORTED_MODULE_4__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("a", {
       className: "githubLink",
-      href: "https://github.com/KhizarWeb/color-contrast-checker",
+      href: "https://github.com/zarhasan/color-contrast-checker",
       target: "_blank",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_icons_go__WEBPACK_IMPORTED_MODULE_6__.GoMarkGithub, {}), "GitHub", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_icons_fi__WEBPACK_IMPORTED_MODULE_7__.FiExternalLink, {})]
     })]
@@ -2169,12 +2169,18 @@ var Text = function Text() {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h5", {
         children: "Heading 5"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h5", {
-      children: "Heading 5"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h6", {
-      children: "Heading 6"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-      children: "Paragraph"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Validation, {
+      requirement: 7.1,
+      message: "WCAG 2.1 color contrast test for small text",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h6", {
+        children: "Heading 6"
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Validation, {
+      requirement: 7.1,
+      message: "WCAG 2.1 color contrast test for small text",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+        children: "Paragraph"
+      })
     })]
   });
 };
@@ -2190,19 +2196,37 @@ var Form = function Form() {
       backgroundColor: backgroundColor.toHexString(),
       color: foregroundColor.toHexString()
     },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-      htmlFor: "inputElement",
-      children: "Label"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "elements__demoInput",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-        type: "text",
-        name: "inputElement",
-        id: "inputElement",
-        disabled: true,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Validation, {
+      requirement: 7.1,
+      message: "WCAG 2.1 color contrast test for small text",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+        htmlFor: "inputElement",
+        children: "Label"
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Validation, {
+      requirement: 3.1,
+      message: "WCAG 2.1 color contrast test for non-textual elements such as border",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "elements__demoInput",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          type: "text",
+          name: "inputElement",
+          id: "inputElement",
+          disabled: true,
+          style: {
+            borderColor: foregroundColor.toHexString()
+          }
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Validation, {
+      requirement: 4.5,
+      message: "WCAG 2.1 color contrast test for small text",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
         style: {
-          borderColor: foregroundColor.toHexString()
-        }
+          color: backgroundColor.toHexString(),
+          backgroundColor: foregroundColor.toHexString()
+        },
+        children: "Submit"
       })
     })]
   });
@@ -2221,12 +2245,12 @@ var Validation = function Validation(_ref) {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "elements__validation-outer",
       children: [children, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
-        className: "elements__validation",
+        className: "elements__validation".concat(contrastRatio > requirement ? " pass" : " fail"),
         style: {
           color: tinycolor2__WEBPACK_IMPORTED_MODULE_2___default().mostReadable(colorPickerBackground, ["#16161a", "#ffffff"]).toHexString()
         },
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-          className: "elements__validation-icon".concat(contrastRatio > requirement ? " pass" : " fail"),
+          className: "elements__validation-icon",
           children: contrastRatio > requirement ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_icons_fi__WEBPACK_IMPORTED_MODULE_4__.FiCheck, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_icons_fi__WEBPACK_IMPORTED_MODULE_4__.FiX, {})
         }), contrastRatio > requirement ? "Passes " : "Fails ", message]
       })]

@@ -59,9 +59,19 @@ const Text = () => {
         <h5>Heading 5</h5>
       </Validation>
 
-      <h5>Heading 5</h5>
-      <h6>Heading 6</h6>
-      <p>Paragraph</p>
+      <Validation
+        requirement={7.1}
+        message="WCAG 2.1 color contrast test for small text"
+      >
+        <h6>Heading 6</h6>
+      </Validation>
+
+      <Validation
+        requirement={7.1}
+        message="WCAG 2.1 color contrast test for small text"
+      >
+        <p>Paragraph</p>
+      </Validation>
     </div>
   );
 };
@@ -77,18 +87,43 @@ const Form = () => {
         color: foregroundColor.toHexString(),
       }}
     >
-      <label htmlFor="inputElement">Label</label>
-      <div className="elements__demoInput">
-        <input
-          type="text"
-          name="inputElement"
-          id="inputElement"
-          disabled={true}
+      <Validation
+        requirement={7.1}
+        message="WCAG 2.1 color contrast test for small text"
+      >
+        <label htmlFor="inputElement">Label</label>
+      </Validation>
+
+      <Validation
+        requirement={3.1}
+        message="WCAG 2.1 color contrast test for non-textual elements such as border"
+      >
+        <div className="elements__demoInput">
+          <input
+            type="text"
+            name="inputElement"
+            id="inputElement"
+            disabled={true}
+            style={{
+              borderColor: foregroundColor.toHexString(),
+            }}
+          />
+        </div>
+      </Validation>
+
+      <Validation
+        requirement={4.5}
+        message="WCAG 2.1 color contrast test for small text"
+      >
+        <button
           style={{
-            borderColor: foregroundColor.toHexString(),
+            color: backgroundColor.toHexString(),
+            backgroundColor: foregroundColor.toHexString(),
           }}
-        />
-      </div>
+        >
+          Submit
+        </button>
+      </Validation>
     </form>
   );
 };
@@ -101,18 +136,16 @@ const Validation = ({ requirement, message, children }) => {
       <div className="elements__validation-outer">
         {children}
         <p
-          className="elements__validation"
+          className={`elements__validation${
+            contrastRatio > requirement ? " pass" : " fail"
+          }`}
           style={{
             color: tinycolor
               .mostReadable(colorPickerBackground, ["#16161a", "#ffffff"])
               .toHexString(),
           }}
         >
-          <span
-            className={`elements__validation-icon${
-              contrastRatio > requirement ? " pass" : " fail"
-            }`}
-          >
+          <span className="elements__validation-icon">
             {contrastRatio > requirement ? <FiCheck /> : <FiX />}
           </span>
           {contrastRatio > requirement ? "Passes " : "Fails "}

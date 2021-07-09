@@ -3,20 +3,23 @@
   align-items: flex-start;
   width: 100%;
   height: auto;
-  padding: 17.5rem $page-padding 5rem;
+  padding: 2.5rem $page-padding 5rem;
   background-color: color(background-darker);
+  $root: &;
 
-  @include device(mobile) {
-    padding: 27.5rem $page-padding 5rem;
+  @include device(mobileAndTablet) {
+    padding: 7.5rem $page-padding 5rem;
   }
 
   &__validation {
     @extend .flex-start;
+    @include font-size(small);
+    flex-wrap: nowrap;
 
     &-icon {
-      @include font-size(small);
       @extend .flex-center;
       display: inline-flex;
+      min-width: 1.25rem;
       width: 1.25rem;
       height: 1.25rem;
       font-weight: 600;
@@ -25,12 +28,16 @@
       border-radius: 100%;
       z-index: 1;
       margin-right: 0.5rem;
+    }
 
-      &.pass {
+    &.pass {
+      #{$root}__validation-icon {
         background-color: material-color("green", "700");
       }
+    }
 
-      &.fail {
+    &.fail {
+      #{$root}__validation-icon {
         background-color: material-color("red", "700");
       }
     }
@@ -88,6 +95,12 @@
       font-weight: 600;
       margin-bottom: 0.5rem;
       position: relative;
+    }
+
+    button {
+      border: none;
+      padding: 0.8em 1.5em;
+      border-radius: 0.5em;
     }
 
     @include device(mobileAndTablet) {
