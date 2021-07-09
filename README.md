@@ -4,7 +4,5 @@ A simple web tool built using react that allows you to check color contrast rati
 
 ## Big thanks to:-
 
-@bgrins for creating TinyColor
-@tailwindlabs for creating headlessui
-@facebook for creating ReactJs
-@casesandberg for creating react-color
+- [@bgrins](https://github.com/bgrins) for creating [TinyColor](https://github.com/bgrins/TinyColor)
+- [@casesandberg](https://github.com/casesandberg) for creating [react-color](https://github.com/casesandberg/react-color)
