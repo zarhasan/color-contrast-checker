@@ -1,14 +1,18 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import tinycolor from "tinycolor2";
 import { AppContext } from "../store";
 import Form from "./Form";
 import Elements from "./Elements";
+import { GoMarkGithub } from "react-icons/go";
+import { FiExternalLink } from "react-icons/fi";
 
 const App = () => {
-  const [backgroundColor, setBackgroundColor] = useState(null);
-  const [foregroundColor, setForegroundColor] = useState();
+  const [backgroundColor, setBackgroundColor] = useState(tinycolor("#ffffff"));
+  const [foregroundColor, setForegroundColor] = useState(tinycolor("#00796b"));
 
-  const [contrastRatio, setContrastRatio] = useState("");
+  const [contrastRatio, setContrastRatio] = useState(
+    tinycolor.readability(backgroundColor, foregroundColor)
+  );
 
   const [colorPickerBackground, setColorPickerBackground] = useState("");
   const [colorPickerForeground, setColorPickerForeground] = useState("");
@@ -40,16 +44,19 @@ const App = () => {
     inputColorForeground,
   };
 
-  useEffect(() => {
-    setBackgroundColor(tinycolor("#ffffff"));
-    setForegroundColor(tinycolor("#00796b"));
-    setContrastRatio(tinycolor.readability(backgroundColor, foregroundColor));
-  }, []);
-
   return (
     <AppContext.Provider value={context}>
       <Form />
       <Elements />
+      <a
+        className="githubLink"
+        href="https://github.com/KhizarWeb/color-contrast-checker"
+        target="_blank"
+      >
+        <GoMarkGithub />
+        GitHub
+        <FiExternalLink />
+      </a>
     </AppContext.Provider>
   );
 };

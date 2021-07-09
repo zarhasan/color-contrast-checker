@@ -8,8 +8,10 @@
     top: 0;
     background-color: color(text);
     color: color(background);
-    padding: 2.5rem 5rem 2.5rem;
+    padding: 2.5rem 5rem 4rem;
     z-index: 1000;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
   }
 
   &__input {
@@ -17,7 +19,7 @@
     position: relative;
 
     > label {
-      @include font-size(small);
+      @include font-size(p);
       font-weight: 600;
       display: block;
       margin-bottom: 0.5rem;
@@ -112,11 +114,17 @@
     width: 7.5rem;
     height: 7.5rem;
     position: absolute;
-    bottom: -3.25rem;
-    left: $page-padding;
+    bottom: -5.625rem;
+    left: 50%;
+    margin-left: -3.25rem;
     border-radius: 100%;
     background-color: material-color("green", "500");
     border: 0.5rem solid color(background-darker);
+
+    @include device(mobileAndTablet) {
+      left: $page-padding;
+      margin-left: 0;
+    }
   }
 
   &__swap {

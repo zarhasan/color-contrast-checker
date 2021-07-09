@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { AppContext } from "../store";
 import { FiX, FiCheck } from "react-icons/fi";
+import tinycolor from "tinycolor2";
 
 const Elements = () => {
   return (
-    <div className="contrast_checker__elements">
-      <h2 className="contrast_checker__title">Examples</h2>
+    <div className="elements">
+      <h2 className="elements__title">Examples</h2>
       <Text />
       <Form />
     </div>
@@ -17,33 +18,50 @@ const Text = () => {
 
   return (
     <div
-      className="contrast_checker__text"
+      className="elements__text"
       style={{
         backgroundColor: backgroundColor ? backgroundColor.toHexString() : "",
         color: foregroundColor ? foregroundColor.toHexString() : "",
       }}
     >
-      <h1>
-        Heading 1 <Chip requirement={4.5} />
-      </h1>
-      <h2>
-        Heading 2 <Chip requirement={4.5} />
-      </h2>
-      <h3>
-        Heading 3 <Chip requirement={4.5} />
-      </h3>
-      <h4>
-        Heading 3 <Chip requirement={4.5} />
-      </h4>
-      <h5>
-        Heading 5 <Chip requirement={4.5} />
-      </h5>
-      <h6>
-        Heading 6 <Chip requirement={7.1} />
-      </h6>
-      <p>
-        Paragraph <Chip requirement={7.1} />
-      </p>
+      <Validation
+        requirement={4.5}
+        message="WCAG 2.1 color contrast test for large text"
+      >
+        <h1>Heading 1</h1>
+      </Validation>
+
+      <Validation
+        requirement={4.5}
+        message="WCAG 2.1 color contrast test for large text"
+      >
+        <h2>Heading 2</h2>
+      </Validation>
+
+      <Validation
+        requirement={4.5}
+        message="WCAG 2.1 color contrast test for large text"
+      >
+        <h3>Heading 3</h3>
+      </Validation>
+
+      <Validation
+        requirement={4.5}
+        message="WCAG 2.1 color contrast test for large text"
+      >
+        <h4>Heading 4</h4>
+      </Validation>
+
+      <Validation
+        requirement={4.5}
+        message="WCAG 2.1 color contrast test for large text"
+      >
+        <h5>Heading 5</h5>
+      </Validation>
+
+      <h5>Heading 5</h5>
+      <h6>Heading 6</h6>
+      <p>Paragraph</p>
     </div>
   );
 };
@@ -53,43 +71,54 @@ const Form = () => {
 
   return (
     <form
-      className="contrast_checker__demoForm"
+      className="elements__demoForm"
       style={{
-        backgroundColor: backgroundColor ? backgroundColor.toHexString() : "",
-        color: foregroundColor ? foregroundColor.toHexString() : "",
+        backgroundColor: backgroundColor.toHexString(),
+        color: foregroundColor.toHexString(),
       }}
     >
-      <label htmlFor="inputElement">
-        Label <Chip requirement={7.1} />
-      </label>
-      <div className="contrast_checker__demoInput">
+      <label htmlFor="inputElement">Label</label>
+      <div className="elements__demoInput">
         <input
           type="text"
           name="inputElement"
           id="inputElement"
-          disabled="true"
+          disabled={true}
           style={{
-            borderColor: foregroundColor ? foregroundColor.toHexString() : "",
+            borderColor: foregroundColor.toHexString(),
           }}
         />
-        <Chip requirement={3.1} />
       </div>
     </form>
   );
 };
 
-const Chip = ({ requirement }) => {
-  const { contrastRatio } = useContext(AppContext);
+const Validation = ({ requirement, message, children }) => {
+  const { contrastRatio, colorPickerBackground } = useContext(AppContext);
 
   return (
     <>
-      <span
-        className={`contrast_checker__chip${
-          contrastRatio > requirement ? " pass" : " fail"
-        }`}
-      >
-        {contrastRatio > requirement ? <FiCheck /> : <FiX />}
-      </span>
+      <div className="elements__validation-outer">
+        {children}
+        <p
+          className="elements__validation"
+          style={{
+            color: tinycolor
+              .mostReadable(colorPickerBackground, ["#16161a", "#ffffff"])
+              .toHexString(),
+          }}
+        >
+          <span
+            className={`elements__validation-icon${
+              contrastRatio > requirement ? " pass" : " fail"
+            }`}
+          >
+            {contrastRatio > requirement ? <FiCheck /> : <FiX />}
+          </span>
+          {contrastRatio > requirement ? "Passes " : "Fails "}
+          {message}
+        </p>
+      </div>
     </>
   );
 };
