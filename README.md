@@ -1,4 +1,4 @@
-# Color Contrast Checker
+# [Color Contrast Checker](https://zarhasan.github.io/color-contrast-checker/)
 
 A simple web tool built using react that allows you to check color contrast ratio between any two valid color.
 
