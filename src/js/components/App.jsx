@@ -9,20 +9,25 @@ import Elements from "./Elements";
 
 const colors = [
   ["#16161a", "#ff8906"],
+  ["#212c34", "#fb5870"],
   ["#232946", "#eebbc3"],
   ["#004643", "#f9bc60"],
   ["#55423d", "#ffc0ad"],
   ["#000000", "#7f5af0"],
+  ["#1a2037", "#3a97d4"],
+  ["#1c234a", "#1bfaad"],
+  ["#020a53", "#f6e679"],
+  ["#2c0032", "#82fc00"],
 ];
 
 const App = () => {
   const [colorsIndex, setColorIndex] = useLocalStorage("colorIndex", 0);
 
   const [backgroundColor, setBackgroundColor] = useState(
-    tinycolor(colors[colorsIndex][0])
+    tinycolor(colors[colorsIndex] ? colors[colorsIndex][0] : colors[0][1])
   );
   const [foregroundColor, setForegroundColor] = useState(
-    tinycolor(colors[colorsIndex][1])
+    tinycolor(colors[colorsIndex] ? colors[colorsIndex][1] : colors[0][1])
   );
 
   const [contrastRatio, setContrastRatio] = useState(
@@ -40,14 +45,6 @@ const App = () => {
   const inputColorForeground = useRef(null);
 
   useEffect(() => {
-    if (colorsIndex >= 0 && colorsIndex < colors.length - 1) {
-      setColorIndex(parseInt(colorsIndex) + 1);
-    } else {
-      setColorIndex(0);
-    }
-  }, []);
-
-  useEffect(() => {
     if (backgroundColor && foregroundColor) {
       setContrastRatio(tinycolor.readability(backgroundColor, foregroundColor));
     }
@@ -62,6 +59,18 @@ const App = () => {
       foregroundColor.toHex()
     )}'/%3E%3C/svg%3E`
   );
+
+  useEffect(() => {
+    if (colorsIndex >= 0 && colorsIndex < colors.length - 1) {
+      setColorIndex(parseInt(colorsIndex) + 1);
+    } else {
+      setColorIndex(0);
+    }
+
+    if (!colors[colorsIndex]) {
+      setColorIndex(0);
+    }
+  }, []);
 
   const context = {
     backgroundColor,

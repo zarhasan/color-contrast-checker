@@ -133,27 +133,25 @@ const Validation = ({ requirement, message, children }) => {
   const { contrastRatio, colorPickerBackground } = useContext(AppContext);
 
   return (
-    <>
-      <div className="elements__validation-outer">
-        {children}
-        <p
-          className={`elements__validation${
-            contrastRatio > requirement ? " pass" : " fail"
-          }`}
-          style={{
-            color: tinycolor
-              .mostReadable(colorPickerBackground, ["#16161a", "#ffffff"])
-              .toHexString(),
-          }}
-        >
-          <span className="elements__validation-icon">
-            {contrastRatio > requirement ? <FiCheck /> : <FiX />}
-          </span>
-          {contrastRatio > requirement ? "Passes " : "Fails "}
-          {message}
-        </p>
-      </div>
-    </>
+    <div className="elements__validation-outer">
+      {children}
+      <p
+        className={`elements__validation${
+          contrastRatio > requirement ? " pass" : " fail"
+        }`}
+        style={{
+          color: tinycolor
+            .mostReadable(colorPickerBackground, ["#16161a", "#ffffff"])
+            .toHexString(),
+        }}
+      >
+        <span className="elements__validation-icon">
+          {contrastRatio > requirement ? <FiCheck /> : <FiX />}
+        </span>
+        {contrastRatio > requirement ? "Passes " : "Fails "}
+        {message}
+      </p>
+    </div>
   );
 };
 
