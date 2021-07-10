@@ -48,24 +48,28 @@ html {
   font-family: "WorkSans";
   font-weight: 500;
   src: url(../fonts/WorkSans-Regular.ttf);
+  display: swap;
 }
 
 @font-face {
   font-family: "WorkSans";
   font-weight: 500;
   src: url(../fonts/WorkSans-Medium.ttf);
+  display: swap;
 }
 
 @font-face {
   font-family: "WorkSans";
   font-weight: 600;
   src: url(../fonts/WorkSans-SemiBold.ttf);
+  display: swap;
 }
 
 @font-face {
   font-family: "WorkSans";
   font-weight: 700;
   src: url(../fonts/WorkSans-Bold.ttf);
+  display: swap;
 }
 
 body {

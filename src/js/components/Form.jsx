@@ -7,23 +7,19 @@ import Input from "./Input";
 const InputBackground = () => {
   const {
     backgroundColor,
-    toggleColorPickerBackground,
     setColorPickerBackground,
     setBackgroundColor,
     inputColorBackground,
     colorPickerBackground,
-    showColorPickerBackground,
   } = useContext(AppContext);
 
   return (
     <Input
       color={backgroundColor}
-      toggleColorPicker={toggleColorPickerBackground}
       setColorPicker={setColorPickerBackground}
       setColor={setBackgroundColor}
       inputColor={inputColorBackground}
       colorPicker={colorPickerBackground}
-      showColorPicker={showColorPickerBackground}
       id={"backgroundColor"}
       title={"Background Color"}
     />
@@ -33,8 +29,6 @@ const InputBackground = () => {
 const InputForeground = () => {
   const {
     foregroundColor,
-    showColorPickerForeground,
-    toggleColorPickerForeground,
     setColorPickerForeground,
     setForegroundColor,
     colorPickerForeground,
@@ -44,45 +38,49 @@ const InputForeground = () => {
   return (
     <Input
       color={foregroundColor}
-      toggleColorPicker={toggleColorPickerForeground}
       setColorPicker={setColorPickerForeground}
       setColor={setForegroundColor}
       inputColor={inputColorForeground}
       colorPicker={colorPickerForeground}
-      showColorPicker={showColorPickerForeground}
       id={"foregroundColor"}
       title={"Foreground Color"}
     />
   );
 };
 
-const ButtonSwap = () => {
+const SwapButton = () => {
   const {
     inputColorBackground,
     inputColorForeground,
     setBackgroundColor,
     setForegroundColor,
+    colorPickerBackground,
+    colorPickerForeground,
+    setColorPickerBackground,
+    setColorPickerForeground,
   } = useContext(AppContext);
 
   return (
     <button
-      className="contrast_checker__swap"
+      className="form__swap"
       onClick={(e) => {
         const background = inputColorBackground.current.value;
         const foreground = inputColorForeground.current.value;
 
-        inputColorBackground.current.value = foreground;
-        inputColorForeground.current.value = background;
-
         const colorBackground = tinycolor(background);
         const colorForeground = tinycolor(foreground);
 
+        const pickerBackground = colorPickerBackground;
+        const pickerForeground = colorPickerForeground;
+
         if (colorForeground.isValid()) {
           setBackgroundColor(colorForeground);
+          setColorPickerBackground(pickerForeground);
         }
 
         if (colorBackground.isValid()) {
           setForegroundColor(colorBackground);
+          setColorPickerForeground(pickerBackground);
         }
       }}
     >
@@ -106,7 +104,7 @@ const ContrastResult = () => {
 
   return (
     <div
-      className="contrast_checker__result"
+      className="form__result"
       style={{
         backgroundColor: resultColor,
       }}
@@ -117,25 +115,16 @@ const ContrastResult = () => {
 };
 
 const Form = () => {
-  const { backgroundColor, foregroundColor, setContrastRatio } =
-    useContext(AppContext);
-
-  useEffect(() => {
-    if (backgroundColor && foregroundColor) {
-      setContrastRatio(tinycolor.readability(backgroundColor, foregroundColor));
-    }
-  }, [backgroundColor, foregroundColor]);
-
   return (
     <form
-      className="contrast_checker__form"
+      className="form"
       action="/"
       onSubmit={(e) => {
         e.preventDefault();
       }}
     >
       <InputBackground />
-      <ButtonSwap />
+      <SwapButton />
       <InputForeground />
       <ContrastResult />
     </form>

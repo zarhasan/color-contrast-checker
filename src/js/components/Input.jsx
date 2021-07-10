@@ -3,9 +3,9 @@ import tinycolor from "tinycolor2";
 import debounce from "lodash/debounce";
 import { motion, AnimatePresence } from "framer-motion";
 import { Listbox } from "@headlessui/react";
-import { MdColorize } from "react-icons/md";
-import { PhotoshopPicker } from "react-color";
-import { useClickAway } from "react-use";
+import { MdColorize, MdContentCopy } from "react-icons/md";
+import { useClickAway, useCopyToClipboard, useToggle } from "react-use";
+import { HexColorPicker } from "react-colorful";
 
 const formats = [
   { id: 1, name: "hex", unavailable: false },
@@ -18,18 +18,18 @@ const formats = [
 const Input = (props) => {
   const {
     color,
-    toggleColorPicker,
     setColorPicker,
     setColor,
     inputColor,
     colorPicker,
-    showColorPicker,
     id,
     title,
   } = props;
 
   const [selectedFormat, setSelectedFormat] = useState(formats[0]);
   const [editing, setEditing] = useState(false);
+  const [showColorPicker, toggleColorPicker] = useToggle(false);
+  const [clipboard, copyToClipboard] = useCopyToClipboard();
 
   const picker = useRef(null);
   const inputOuter = useRef(null);
@@ -42,14 +42,24 @@ const Input = (props) => {
     toggleColorPicker(false);
   });
 
-  useEffect(() => {
-    setColorPicker(`#${color.toHex()}`);
+  function formatColor() {
+    const convertedString = color.toString(selectedFormat.name);
 
-    formats.forEach(function (format, index) {
-      if (format.name === color.getFormat()) {
-        setSelectedFormat(formats[index]);
-      }
-    });
+    if (convertedString) {
+      inputColor.current.value = convertedString;
+    }
+  }
+
+  useEffect(() => {
+    if (editing === true) {
+      formats.forEach(function (format, index) {
+        if (format.name === color.getFormat()) {
+          setSelectedFormat(formats[index]);
+        }
+      });
+    } else {
+      formatColor();
+    }
   }, [color]);
 
   useEffect(() => {
@@ -57,24 +67,47 @@ const Input = (props) => {
       return;
     }
 
-    const convertedString = color.toString(selectedFormat.name);
+    formatColor();
+  }, [selectedFormat]);
 
-    if (convertedString) {
-      inputColor.current.value = convertedString;
+  useEffect(() => {
+    const pickedColor = tinycolor(colorPicker, {
+      format: selectedFormat.name,
+    });
+
+    if (!pickedColor.isValid()) {
+      return;
     }
-  }, [selectedFormat, colorPicker]);
+
+    setColor(pickedColor);
+  }, [colorPicker]);
 
   return (
-    <div className="contrast_checker__input" ref={inputOuter}>
-      <label htmlFor={id}>{title}</label>
+    <div
+      className={`form__input${editing ? " focused" : ""}${
+        showColorPicker ? " picking" : ""
+      }`}
+      ref={inputOuter}
+    >
+      <label htmlFor={id}>
+        {title}
+        <button
+          className="form__copy"
+          onClick={(e) => {
+            copyToClipboard(inputColor.current.value);
+          }}
+        >
+          <MdContentCopy />
+        </button>
+      </label>
 
-      <div className="contrast_checker__input-inner">
-        <div className="contrast_checker__format">
+      <div className="form__input-inner">
+        <div className="form__format">
           <Listbox value={selectedFormat} onChange={setSelectedFormat}>
-            <Listbox.Button className="contrast_checker__format-button">
+            <Listbox.Button className="form__format-button">
               {selectedFormat.name}
             </Listbox.Button>
-            <Listbox.Options className="contrast_checker__format-dropdown">
+            <Listbox.Options className="form__format-dropdown">
               {formats.map((format) => (
                 <Listbox.Option
                   key={format.id}
@@ -104,11 +137,9 @@ const Input = (props) => {
           id={id}
           onFocus={(e) => {
             setEditing(true);
-            inputOuter.current.classList.add("focused");
           }}
           onBlur={(e) => {
             setEditing(false);
-            inputOuter.current.classList.remove("focused");
           }}
           onChange={debounce((e) => {
             if (!e.target.value) {
@@ -121,21 +152,18 @@ const Input = (props) => {
             }
 
             setColor(colorValue);
+            setColorPicker(colorValue.toHexString());
           }, 300)}
         />
         <button
-          className="contrast_checker__picker-button"
+          className="form__picker-button"
           style={{
             backgroundColor: colorPicker,
             color: tinycolor
               .mostReadable(colorPicker, ["#000", "#fff"])
               .toHexString(),
           }}
-          onClick={(e) => {
-            showColorPicker
-              ? toggleColorPicker(false)
-              : toggleColorPicker(true);
-          }}
+          onClick={toggleColorPicker}
         >
           <MdColorize />
         </button>
@@ -145,38 +173,13 @@ const Input = (props) => {
         {showColorPicker && (
           <motion.div
             ref={picker}
-            className="contrast_checker__picker-wrap"
+            className="form__picker-wrap"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 50, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
           >
-            <PhotoshopPicker
-              color={colorPicker}
-              onChange={(pickedColor, e) => {
-                setColorPicker(pickedColor.hex);
-
-                const color = tinycolor(
-                  pickedColor[
-                    selectedFormat && selectedFormat.name != "name"
-                      ? selectedFormat.name
-                      : "hex"
-                  ]
-                );
-
-                if (!color.isValid()) {
-                  return;
-                }
-
-                setColor(color);
-              }}
-              onAccept={(e) => {
-                toggleColorPicker(false);
-              }}
-              onCancel={(e) => {
-                toggleColorPicker(false);
-              }}
-            />
+            <HexColorPicker color={colorPicker} onChange={setColorPicker} />
           </motion.div>
         )}
       </AnimatePresence>

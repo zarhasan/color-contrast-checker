@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { AppContext } from "../store";
 import { GoMarkGithub } from "react-icons/go";
 import { FiExternalLink } from "react-icons/fi";
-import { useLocalStorage } from "react-use";
+import { useFavicon, useLocalStorage } from "react-use";
 import tinycolor from "tinycolor2";
 import Form from "./Form";
 import Elements from "./Elements";
@@ -29,13 +29,12 @@ const App = () => {
     tinycolor.readability(backgroundColor, foregroundColor)
   );
 
-  const [colorPickerBackground, setColorPickerBackground] = useState("");
-  const [colorPickerForeground, setColorPickerForeground] = useState("");
-
-  const [showColorPickerBackground, toggleColorPickerBackground] =
-    useState(false);
-  const [showColorPickerForeground, toggleColorPickerForeground] =
-    useState(false);
+  const [colorPickerBackground, setColorPickerBackground] = useState(
+    backgroundColor.toHexString()
+  );
+  const [colorPickerForeground, setColorPickerForeground] = useState(
+    foregroundColor.toHexString()
+  );
 
   const inputColorBackground = useRef(null);
   const inputColorForeground = useRef(null);
@@ -48,6 +47,22 @@ const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (backgroundColor && foregroundColor) {
+      setContrastRatio(tinycolor.readability(backgroundColor, foregroundColor));
+    }
+  }, [backgroundColor, foregroundColor]);
+
+  useFavicon(
+    `data:image/svg+xml,%3Csvg width='163' height='163' viewBox='0 0 163 163' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M81.5 89.5C81.5 130.093 81.5 155 81.5 155C40.9071 155 8 122.093 8 81.5C8 40.9071 40.9071 8 81.5 8C81.5 8 81.5 48.9071 81.5 89.5Z' fill='%23${encodeURI(
+      backgroundColor.toHex()
+    )}'/%3E%3Cpath d='M81 73.5C81 32.9071 81 8 81 8C121.593 8 154.5 40.9071 154.5 81.5C154.5 122.093 121.593 155 81 155C81 155 81 114.093 81 73.5Z' fill='%23${encodeURI(
+      backgroundColor.toHex()
+    )}'/%3E%3Cpath d='M81.5 162.75C36.6256 162.75 0.25 126.374 0.25 81.5C0.25 36.6256 36.6256 0.25 81.5 0.25C126.374 0.25 162.75 36.6256 162.75 81.5C162.75 126.374 126.374 162.75 81.5 162.75ZM81.5 146.5C98.7391 146.5 115.272 139.652 127.462 127.462C139.652 115.272 146.5 98.7391 146.5 81.5C146.5 64.2609 139.652 47.7279 127.462 35.5381C115.272 23.3482 98.7391 16.5 81.5 16.5C64.2609 16.5 47.7279 23.3482 35.5381 35.5381C23.3482 47.7279 16.5 64.2609 16.5 81.5C16.5 98.7391 23.3482 115.272 35.5381 127.462C47.7279 139.652 64.2609 146.5 81.5 146.5V146.5ZM40.875 108.475C58.3848 107.217 74.8512 99.6777 87.2444 87.2444C99.6777 74.8512 107.217 58.3848 108.475 40.875C114.479 44.8747 119.52 50.157 123.235 56.3408C126.949 62.5247 129.246 69.4559 129.958 76.6346C130.67 83.8133 129.779 91.0605 127.351 97.8535C124.923 104.647 121.018 110.816 115.917 115.917C110.816 121.018 104.647 124.923 97.8535 127.351C91.0605 129.779 83.8133 130.67 76.6346 129.958C69.4559 129.246 62.5247 126.949 56.3408 123.235C50.157 119.52 44.8747 114.479 40.875 108.475V108.475Z' fill='%23${encodeURI(
+      foregroundColor.toHex()
+    )}'/%3E%3C/svg%3E`
+  );
+
   const context = {
     backgroundColor,
     setBackgroundColor,
@@ -57,10 +72,6 @@ const App = () => {
     setContrastRatio,
     colorPickerBackground,
     setColorPickerBackground,
-    showColorPickerBackground,
-    toggleColorPickerBackground,
-    showColorPickerForeground,
-    toggleColorPickerForeground,
     colorPickerForeground,
     setColorPickerForeground,
     inputColorBackground,
