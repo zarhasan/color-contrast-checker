@@ -31,7 +31,7 @@
 
 @mixin device($point) {
   @if $point == desktop {
-    @media (min-width: 1050px) {
+    @media (min-width: 1000px) {
       @content;
     }
   } @else if $point == mobile {
@@ -39,11 +39,11 @@
       @content;
     }
   } @else if $point == tablet {
-    @media (max-width: 1050px) and (min-width: 480px) {
+    @media (max-width: 1000px) and (min-width: 480px) {
       @content;
     }
   } @else if $point == mobileAndTablet {
-    @media (max-width: 1050px) {
+    @media (max-width: 1000px) {
       @content;
     }
   }

@@ -1,0 +1,11 @@
+.toast {
+  @include font-size(small);
+  position: fixed;
+  z-index: 1000;
+  left: 1rem;
+  bottom: 1rem;
+  padding: 0.25rem 2rem;
+  background-color: lighten(color(text), 10%);
+  color: color(background);
+  border-radius: 0.5rem;
+}

@@ -6,6 +6,7 @@ import { useFavicon, useLocalStorage } from "react-use";
 import tinycolor from "tinycolor2";
 import Form from "./Form";
 import Elements from "./Elements";
+import Toast from "./Toast";
 
 const colors = [
   ["#16161a", "#ff8906"],
@@ -18,6 +19,14 @@ const colors = [
   ["#1c234a", "#1bfaad"],
   ["#020a53", "#f6e679"],
   ["#2c0032", "#82fc00"],
+];
+
+const formats = [
+  { id: 1, name: "hex", unavailable: false },
+  { id: 2, name: "rgb", unavailable: false },
+  { id: 3, name: "hsl", unavailable: false },
+  { id: 4, name: "hsv", unavailable: false },
+  { id: 5, name: "name", unavailable: false },
 ];
 
 const App = () => {
@@ -34,15 +43,27 @@ const App = () => {
     tinycolor.readability(backgroundColor, foregroundColor)
   );
 
-  const [colorPickerBackground, setColorPickerBackground] = useState(
+  const [backgroundColorPicker, setBackgroundColorPicker] = useState(
     backgroundColor.toHexString()
   );
-  const [colorPickerForeground, setColorPickerForeground] = useState(
+  const [foregroundColorPicker, setForegroundColorPicker] = useState(
     foregroundColor.toHexString()
   );
 
-  const inputColorBackground = useRef(null);
-  const inputColorForeground = useRef(null);
+  const [backgroundColorFormat, setBackgroundColorFormat] = useState(
+    formats[0]
+  );
+  const [foregroundColorFormat, setForegroundColorFormat] = useState(
+    formats[0]
+  );
+
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+  });
+
+  const backgroundColorInput = useRef(null);
+  const foregroundColorInput = useRef(null);
 
   useEffect(() => {
     if (backgroundColor && foregroundColor) {
@@ -79,12 +100,18 @@ const App = () => {
     setForegroundColor,
     contrastRatio,
     setContrastRatio,
-    colorPickerBackground,
-    setColorPickerBackground,
-    colorPickerForeground,
-    setColorPickerForeground,
-    inputColorBackground,
-    inputColorForeground,
+    backgroundColorPicker,
+    setBackgroundColorPicker,
+    foregroundColorPicker,
+    setForegroundColorPicker,
+    backgroundColorFormat,
+    setBackgroundColorFormat,
+    foregroundColorFormat,
+    setForegroundColorFormat,
+    toast,
+    setToast,
+    backgroundColorInput,
+    foregroundColorInput,
   };
 
   return (
@@ -100,6 +127,7 @@ const App = () => {
         GitHub
         <FiExternalLink />
       </a>
+      <Toast />
     </AppContext.Provider>
   );
 };

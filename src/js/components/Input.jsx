@@ -6,7 +6,8 @@ import { Listbox } from "@headlessui/react";
 import { MdColorize, MdContentCopy } from "react-icons/md";
 import { useClickAway, useCopyToClipboard, useToggle } from "react-use";
 import { HexColorPicker } from "react-colorful";
-
+import { useContext } from "react";
+import { AppContext } from "../store";
 const formats = [
   { id: 1, name: "hex", unavailable: false },
   { id: 2, name: "rgb", unavailable: false },
@@ -24,9 +25,12 @@ const Input = (props) => {
     colorPicker,
     id,
     title,
+    colorFormat,
+    setColorFormat,
   } = props;
 
-  const [selectedFormat, setSelectedFormat] = useState(formats[0]);
+  const { setToast } = useContext(AppContext);
+
   const [editing, setEditing] = useState(false);
   const [showColorPicker, toggleColorPicker] = useToggle(false);
   const [clipboard, copyToClipboard] = useCopyToClipboard();
@@ -43,7 +47,7 @@ const Input = (props) => {
   });
 
   function formatColor() {
-    const convertedString = color.toString(selectedFormat.name);
+    const convertedString = color.toString(colorFormat.name);
 
     if (convertedString) {
       inputColor.current.value = convertedString;
@@ -54,7 +58,7 @@ const Input = (props) => {
     if (editing === true) {
       formats.forEach(function (format, index) {
         if (format.name === color.getFormat()) {
-          setSelectedFormat(formats[index]);
+          setColorFormat(formats[index]);
         }
       });
     } else {
@@ -68,11 +72,11 @@ const Input = (props) => {
     }
 
     formatColor();
-  }, [selectedFormat]);
+  }, [colorFormat]);
 
   useEffect(() => {
     const pickedColor = tinycolor(colorPicker, {
-      format: selectedFormat.name,
+      format: colorFormat.name,
     });
 
     if (!pickedColor.isValid()) {
@@ -90,11 +94,15 @@ const Input = (props) => {
       ref={inputOuter}
     >
       <label htmlFor={id}>
-        {title}
+        <span>{title}</span>
         <button
           className="form__copy"
           onClick={(e) => {
             copyToClipboard(inputColor.current.value);
+            setToast({
+              show: true,
+              message: `Successfully copied "${inputColor.current.value}" to clipboard`,
+            });
           }}
         >
           <MdContentCopy />
@@ -103,16 +111,16 @@ const Input = (props) => {
 
       <div className="form__input-inner">
         <div className="form__format">
-          <Listbox value={selectedFormat} onChange={setSelectedFormat}>
+          <Listbox value={colorFormat} onChange={setColorFormat}>
             <Listbox.Button className="form__format-button">
-              {selectedFormat.name}
+              {colorFormat.name}
             </Listbox.Button>
             <Listbox.Options className="form__format-dropdown">
               {formats.map((format) => (
                 <Listbox.Option
                   key={format.id}
                   value={format}
-                  disabled={format.name === selectedFormat.name}
+                  disabled={format.name === colorFormat.name}
                   as={Fragment}
                 >
                   {({ active, selected }) => (

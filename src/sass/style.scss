@@ -21,15 +21,12 @@
 # Partials
 --------------------------------------------------------------*/
 @import "base/typography";
-@import "base/buttons";
 @import "base/links";
 @import "base/media";
-@import "base/tooltips";
-@import "base/alerts";
-@import "base/chips";
 
 /*--------------------------------------------------------------
 # Components
 --------------------------------------------------------------*/
 @import "components/form";
-@import "components/elements.scss";
+@import "components/elements";
+@import "components/toast";

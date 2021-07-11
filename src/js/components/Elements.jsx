@@ -6,7 +6,7 @@ import tinycolor from "tinycolor2";
 const Elements = () => {
   return (
     <div className="elements">
-      <h2 className="elements__title">Examples</h2>
+      <h2 className="elements__title">Demo Elements</h2>
       <Text />
       <Form />
     </div>
@@ -130,7 +130,7 @@ const Form = () => {
 };
 
 const Validation = ({ requirement, message, children }) => {
-  const { contrastRatio, colorPickerBackground } = useContext(AppContext);
+  const { contrastRatio, backgroundColorPicker } = useContext(AppContext);
 
   return (
     <div className="elements__validation-outer">
@@ -141,7 +141,7 @@ const Validation = ({ requirement, message, children }) => {
         }`}
         style={{
           color: tinycolor
-            .mostReadable(colorPickerBackground, ["#16161a", "#ffffff"])
+            .mostReadable(backgroundColorPicker, ["#16161a", "#ffffff"])
             .toHexString(),
         }}
       >
