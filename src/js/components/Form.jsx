@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import tinycolor from "tinycolor2";
-import { MdSwapHoriz } from "react-icons/md";
+import { MdSwapHoriz, MdShare, MdContentCopy } from "react-icons/md";
 import { AppContext } from "../store";
 import Input from "./Input";
+import { useCopyToClipboard } from "react-use";
 
 const InputBackground = () => {
   const {
@@ -129,7 +130,10 @@ const ContrastResult = () => {
 };
 
 const Form = () => {
-  const { backgroundColor, foregroundColor } = useContext(AppContext);
+  const { backgroundColor, foregroundColor, shareLink, setToast } =
+    useContext(AppContext);
+
+  const [clipboard, copyToClipboard] = useCopyToClipboard();
 
   return (
     <form
@@ -160,7 +164,25 @@ const Form = () => {
         </svg>
 
         <h1>Check Color Contrast</h1>
-        <p>Enter any two valid colors below</p>
+
+        {shareLink && (
+          <p className="form__title-shareLink">
+            <a href={shareLink} target="_blank">
+              <span>{decodeURIComponent(shareLink)}</span>
+            </a>
+            <button
+              onClick={(e) => {
+                copyToClipboard(shareLink);
+                setToast({
+                  show: true,
+                  message: `Successfully copied to clipboard`,
+                });
+              }}
+            >
+              <MdContentCopy />
+            </button>
+          </p>
+        )}
       </div>
       <InputBackground />
       <SwapButton />

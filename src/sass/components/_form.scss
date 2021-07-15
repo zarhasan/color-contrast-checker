@@ -22,11 +22,44 @@
       margin: 0;
     }
 
-    p {
+    > a,
+    > p {
       @include font-size(small);
       font-weight: 600;
       color: rgba(color(background), 0.5);
-      margin: 0 0 2.5rem;
+    }
+
+    &-shareLink {
+      @extend .flex-center;
+      margin: 0.5rem 0 2.5rem;
+      flex-wrap: nowrap;
+
+      button {
+        @extend .flex-center;
+        background-color: transparent;
+        color: inherit;
+        border: none;
+        margin-right: 0.25em;
+
+        svg {
+          width: 1em;
+          height: 1em;
+        }
+
+        &:hover {
+          color: rgba(color(background), 0.7);
+        }
+      }
+
+      a:hover {
+        text-decoration: underline;
+        color: rgba(color(background), 0.7);
+        word-break: break-all;
+      }
+
+      @include device(mobileAndTablet) {
+        align-items: flex-start;
+      }
     }
 
     @include device(mobile) {
@@ -43,13 +76,6 @@
       @extend .flex-start;
       font-weight: 600;
       margin-bottom: 0.5rem;
-
-      &:hover {
-        .form__copy {
-          opacity: 1;
-          visibility: visible;
-        }
-      }
     }
 
     &-inner {
@@ -77,6 +103,13 @@
       .picking & {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
+      }
+    }
+
+    &:hover {
+      .form__copy {
+        opacity: 1;
+        visibility: visible;
       }
     }
 

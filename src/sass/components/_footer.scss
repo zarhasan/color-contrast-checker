@@ -1,0 +1,19 @@
+.footer {
+  position: relative;
+  width: 100%;
+  background-color: color(text);
+  color: color(background);
+  padding: 7.5rem $page-padding;
+  --text-decoration-color: color(background);
+
+  &__title {
+    margin-top: 0;
+    @include font-size(h3);
+  }
+
+  a {
+    text-decoration: underline 0.1em;
+    text-underline-offset: 0.1em;
+    text-decoration-color: var(--text-decoration-color);
+  }
+}

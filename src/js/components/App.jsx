@@ -7,6 +7,7 @@ import tinycolor from "tinycolor2";
 import Form from "./Form";
 import Elements from "./Elements";
 import Toast from "./Toast";
+import Footer from "./Footer";
 
 const colors = [
   ["#16161a", "#ff8906"],
@@ -65,10 +66,22 @@ const App = () => {
   const backgroundColorInput = useRef(null);
   const foregroundColorInput = useRef(null);
 
+  const [shareLink, setShareLink] = useState();
+  const baseURL = `${window.location.origin}${window.location.pathname}`;
+
   useEffect(() => {
-    if (backgroundColor && foregroundColor) {
-      setContrastRatio(tinycolor.readability(backgroundColor, foregroundColor));
+    if (!backgroundColor.isValid() || !foregroundColor.isValid()) {
+      return;
     }
+
+    setContrastRatio(tinycolor.readability(backgroundColor, foregroundColor));
+
+    const newURLParams = new URLSearchParams({
+      background_color: backgroundColor.toHexString(),
+      foreground_color: foregroundColor.toHexString(),
+    }).toString();
+
+    setShareLink(`${baseURL}?${newURLParams}`);
   }, [backgroundColor, foregroundColor]);
 
   useFavicon(
@@ -91,6 +104,31 @@ const App = () => {
     if (!colors[colorsIndex]) {
       setColorIndex(0);
     }
+
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (window.location.search) {
+      for (const param of urlParams.entries()) {
+        console.log(param[1]);
+        if (param[0] === "background_color" && param[1]) {
+          const background_color = tinycolor(param[1], {
+            format: "hex",
+          });
+
+          setBackgroundColor(background_color);
+          setBackgroundColorPicker(background_color.toHexString());
+        }
+
+        if (param[0] === "foreground_color" && param[1]) {
+          const foreground_color = tinycolor(param[1], {
+            format: "hex",
+          });
+
+          setForegroundColor(foreground_color);
+          setForegroundColorPicker(foreground_color.toHexString());
+        }
+      }
+    }
   }, []);
 
   const context = {
@@ -112,6 +150,7 @@ const App = () => {
     setToast,
     backgroundColorInput,
     foregroundColorInput,
+    shareLink,
   };
 
   return (
@@ -127,6 +166,7 @@ const App = () => {
         GitHub
         <FiExternalLink />
       </a>
+      <Footer />
       <Toast />
     </AppContext.Provider>
   );
