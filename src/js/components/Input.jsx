@@ -29,7 +29,8 @@ const Input = (props) => {
     setColorFormat,
   } = props;
 
-  const { setToast } = useContext(AppContext);
+  const { setToast, contrastRatio, backgroundColor, foregroundColor } =
+    useContext(AppContext);
 
   const [editing, setEditing] = useState(false);
   const [showColorPicker, toggleColorPicker] = useToggle(false);
@@ -85,6 +86,51 @@ const Input = (props) => {
 
     setColor(pickedColor);
   }, [colorPicker]);
+
+  function enhanceContrast(e, targetContrast) {
+    let otherColor;
+
+    if (tinycolor.equals(color, backgroundColor)) {
+      otherColor = foregroundColor;
+    } else {
+      otherColor = backgroundColor;
+    }
+
+    const currentContrast = tinycolor.readability(
+      backgroundColor,
+      foregroundColor
+    );
+
+    const currentContrastWithDarker = tinycolor.readability(
+      color.darken(1).toString(),
+      otherColor
+    );
+
+    const currentContrastWithLighter = tinycolor.readability(
+      color.lighten(1).toString(),
+      otherColor
+    );
+
+    if (currentContrastWithDarker > currentContrastWithLighter) {
+      setColor(tinycolor(color.darken(1).toString()));
+    } else {
+      setColor(tinycolor(color.lighten(1).toString()));
+    }
+
+    if (
+      color.getBrightness() === 255 ||
+      color.getBrightness() === 0 ||
+      currentContrast >= targetContrast
+    ) {
+      setColorPicker(color.toHexString());
+
+      return;
+    } else {
+      enhanceContrast(e, targetContrast);
+    }
+
+    return;
+  }
 
   return (
     <div
@@ -191,6 +237,19 @@ const Input = (props) => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {color.getBrightness() !== 255 &&
+        color.getBrightness() !== 0 &&
+        contrastRatio < 7.1 && (
+          <button
+            className="form__enhance"
+            onClick={(e) => {
+              enhanceContrast(e, contrastRatio < 4.5 ? 4.5 : 7.1);
+            }}
+          >
+            Adjust for {contrastRatio < 4.5 ? "optimal" : "enhanced"} contrast
+          </button>
+        )}
     </div>
   );
 };

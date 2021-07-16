@@ -109,7 +109,6 @@ const App = () => {
 
     if (window.location.search) {
       for (const param of urlParams.entries()) {
-        console.log(param[1]);
         if (param[0] === "background_color" && param[1]) {
           const background_color = tinycolor(param[1], {
             format: "hex",
