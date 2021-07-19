@@ -5,7 +5,6 @@ import { FiExternalLink } from "react-icons/fi";
 import { useFavicon, useLocalStorage } from "react-use";
 import tinycolor from "tinycolor2";
 import Form from "./Form";
-import Elements from "./Elements";
 import Toast from "./Toast";
 import Footer from "./Footer";
 
@@ -155,7 +154,6 @@ const App = () => {
   return (
     <AppContext.Provider value={context}>
       <Form />
-      <Elements />
       <a
         className="githubLink"
         href="https://github.com/zarhasan/color-contrast-checker"

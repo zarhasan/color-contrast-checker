@@ -1,10 +1,21 @@
-import React, { useEffect, useState, Fragment, useRef } from "react";
+import React, {
+  useEffect,
+  useState,
+  Fragment,
+  useRef,
+  useLayoutEffect,
+} from "react";
 import tinycolor from "tinycolor2";
 import debounce from "lodash/debounce";
 import { motion, AnimatePresence } from "framer-motion";
 import { Listbox } from "@headlessui/react";
 import { MdColorize, MdContentCopy } from "react-icons/md";
-import { useClickAway, useCopyToClipboard, useToggle } from "react-use";
+import {
+  useClickAway,
+  useCopyToClipboard,
+  useEffectOnce,
+  useToggle,
+} from "react-use";
 import { HexColorPicker } from "react-colorful";
 import { useContext } from "react";
 import { AppContext } from "../store";
@@ -96,11 +107,6 @@ const Input = (props) => {
       otherColor = backgroundColor;
     }
 
-    const currentContrast = tinycolor.readability(
-      backgroundColor,
-      foregroundColor
-    );
-
     const currentContrastWithDarker = tinycolor.readability(
       color.darken(1).toString(),
       otherColor
@@ -111,22 +117,26 @@ const Input = (props) => {
       otherColor
     );
 
-    if (currentContrastWithDarker > currentContrastWithLighter) {
-      setColor(tinycolor(color.darken(1).toString()));
-    } else {
-      setColor(tinycolor(color.lighten(1).toString()));
-    }
+    while (true) {
+      const currentContrast = tinycolor.readability(
+        backgroundColor,
+        foregroundColor
+      );
 
-    if (
-      color.getBrightness() === 255 ||
-      color.getBrightness() === 0 ||
-      currentContrast >= targetContrast
-    ) {
-      setColorPicker(color.toHexString());
+      if (currentContrastWithDarker > currentContrastWithLighter) {
+        setColor(tinycolor(color.darken(1).toString()));
+      } else {
+        setColor(tinycolor(color.lighten(1).toString()));
+      }
 
-      return;
-    } else {
-      enhanceContrast(e, targetContrast);
+      if (
+        color.getBrightness() === 255 ||
+        color.getBrightness() === 0 ||
+        currentContrast >= targetContrast
+      ) {
+        setColorPicker(color.toHexString());
+        break;
+      }
     }
 
     return;
@@ -221,22 +231,25 @@ const Input = (props) => {
         >
           <MdColorize />
         </button>
-      </div>
 
-      <AnimatePresence>
-        {showColorPicker && (
-          <motion.div
-            ref={picker}
-            className="form__picker-wrap"
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 50, opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
-          >
-            <HexColorPicker color={colorPicker} onChange={setColorPicker} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+        <AnimatePresence>
+          {showColorPicker && (
+            <motion.div
+              ref={picker}
+              className="form__picker"
+              initial={{
+                y: 50,
+                opacity: 0,
+              }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 50, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+            >
+              <HexColorPicker color={colorPicker} onChange={setColorPicker} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       {color.getBrightness() !== 255 &&
         color.getBrightness() !== 0 &&

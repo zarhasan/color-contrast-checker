@@ -1,15 +1,15 @@
 .footer {
+  @include font-size(h5);
   position: relative;
   width: 100%;
-  background-color: color(text);
+  background-color: darken(color(text), 5%);
   color: color(background);
   padding: 7.5rem $page-padding;
-  text-align: center;
   --text-decoration-color: color(background);
 
   &__title {
+    @include font-size(h2);
     margin-top: 0;
-    @include font-size(h3);
   }
 
   a {
