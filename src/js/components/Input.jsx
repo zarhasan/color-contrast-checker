@@ -151,18 +151,6 @@ const Input = (props) => {
     >
       <label htmlFor={id}>
         <span>{title}</span>
-        <button
-          className="form__copy"
-          onClick={(e) => {
-            copyToClipboard(inputColor.current.value);
-            setToast({
-              show: true,
-              message: `Successfully copied "${inputColor.current.value}" to clipboard`,
-            });
-          }}
-        >
-          <MdContentCopy />
-        </button>
       </label>
 
       <div className="form__input-inner">
@@ -251,18 +239,32 @@ const Input = (props) => {
         </AnimatePresence>
       </div>
 
-      {color.getBrightness() !== 255 &&
-        color.getBrightness() !== 0 &&
-        contrastRatio < 7.1 && (
-          <button
-            className="form__enhance"
-            onClick={(e) => {
-              enhanceContrast(e, contrastRatio < 4.5 ? 4.5 : 7.1);
-            }}
-          >
-            Adjust for {contrastRatio < 4.5 ? "optimal" : "enhanced"} contrast
-          </button>
-        )}
+      <div className="form__input-actions">
+        {color.getBrightness() !== 255 &&
+          color.getBrightness() !== 0 &&
+          contrastRatio < 7.1 && (
+            <button
+              className="form__enhance"
+              onClick={(e) => {
+                enhanceContrast(e, contrastRatio < 4.5 ? 4.5 : 7.1);
+              }}
+            >
+              Adjust for {contrastRatio < 4.5 ? "optimal" : "enhanced"} contrast
+            </button>
+          )}
+
+        <button
+          onClick={(e) => {
+            copyToClipboard(inputColor.current.value);
+            setToast({
+              show: true,
+              message: `Successfully copied "${inputColor.current.value}" to clipboard`,
+            });
+          }}
+        >
+          Copy to clipboard
+        </button>
+      </div>
     </div>
   );
 };

@@ -2,10 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import { AppContext } from "../store";
 import { GoMarkGithub } from "react-icons/go";
 import { FiExternalLink } from "react-icons/fi";
-import { useFavicon, useLocalStorage } from "react-use";
+import { useFavicon, useLocalStorage, useToggle } from "react-use";
 import tinycolor from "tinycolor2";
 import Form from "./Form";
 import Toast from "./Toast";
+import ColorHistory from "./ColorHistory";
 import Footer from "./Footer";
 
 const colors = [
@@ -31,6 +32,12 @@ const formats = [
 
 const App = () => {
   const [colorsIndex, setColorIndex] = useLocalStorage("colorIndex", 0);
+  const [colorHistory, setColorHistory] = useLocalStorage(
+    "colorHistory",
+    colors
+  );
+
+  const [showHistory, toggleHistory] = useToggle(false);
 
   const [backgroundColor, setBackgroundColor] = useState(
     tinycolor(colors[colorsIndex] ? colors[colorsIndex][0] : colors[0][1])
@@ -146,6 +153,10 @@ const App = () => {
     setForegroundColorFormat,
     toast,
     setToast,
+    colorHistory,
+    setColorHistory,
+    showHistory,
+    toggleHistory,
     backgroundColorInput,
     foregroundColorInput,
     shareLink,
@@ -164,6 +175,7 @@ const App = () => {
         <FiExternalLink />
       </a>
       <Footer />
+      <ColorHistory />
       <Toast />
     </AppContext.Provider>
   );

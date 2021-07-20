@@ -8,20 +8,30 @@
   padding: 10rem $page-padding;
   z-index: 1000;
 
-  &__shareLink {
+  &__actions {
     @extend .flex-start;
-    @include font-size(xx-small);
-    margin: 0.5rem 0 0 0;
+    @include font-size(small);
+    margin: 0 0 0.5rem 0;
     flex-wrap: nowrap;
     font-weight: 600;
-    color: rgba(color(background), 0.5);
+    color: rgba(color(background), 0.7);
 
     button {
-      @extend .flex-center;
+      @include font-size(x-small);
+      font-weight: 500;
+      display: block;
       background-color: transparent;
-      color: inherit;
       border: none;
-      margin-right: 0.25em;
+      text-underline-offset: 0.2em;
+      padding: 0;
+      background-color: lighten(color(text), 5%);
+      color: rgba(color(background), 0.7);
+      padding: 0.5em 1rem;
+      border-radius: 2.5rem;
+
+      &:not(:last-child) {
+        margin-right: 0.5rem;
+      }
 
       svg {
         width: 1em;
@@ -29,24 +39,7 @@
       }
 
       &:hover {
-        color: rgba(color(background), 0.7);
-      }
-    }
-
-    a:hover {
-      text-decoration: underline;
-      color: rgba(color(background), 0.7);
-      word-break: break-all;
-    }
-
-    @include device(mobileAndTablet) {
-      align-items: flex-start;
-
-      button {
-        svg {
-          width: 2em;
-          height: 2em;
-        }
+        color: color(background);
       }
     }
   }
@@ -108,6 +101,31 @@
       .form__copy {
         opacity: 1;
         visibility: visible;
+      }
+    }
+
+    &-actions {
+      @extend .flex-start;
+
+      > button {
+        @include font-size(small);
+        display: block;
+        background-color: transparent;
+        color: rgba(color(background), 0.7);
+        border: none;
+        margin-top: 1em;
+        font-weight: 500;
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+        padding: 0;
+
+        &:not(:last-child) {
+          margin-right: 0.5rem;
+        }
+      }
+
+      @include device(mobile) {
+        margin-left: auto;
       }
     }
 
@@ -195,22 +213,6 @@
     }
   }
 
-  &__enhance {
-    @include font-size(small);
-    display: block;
-    background-color: transparent;
-    color: rgba(color(background), 0.7);
-    border: none;
-    margin-top: 1em;
-    font-weight: 500;
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-
-    @include device(mobile) {
-      margin-left: auto;
-    }
-  }
-
   &__format {
     position: relative;
 
@@ -258,34 +260,36 @@
   }
 
   &__result {
-    @include font-size(p);
+    @include font-size(h6);
     @extend .flex-start;
     display: inline-flex;
-    width: auto;
+    width: 100%;
+    height: 4rem;
     border-radius: 0.5em;
-    padding: 0.25em 1em 0.25em 0.25em;
-    margin: 2.5rem 0 0;
-    bottom: 2.5rem;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
+    border: 0.2em solid material-color("green", "800");
+    padding: 0.25em 1em 0.25em 5.5rem;
+    margin: 0 0 2.5rem 0;
     background-color: transparent;
     color: color(background);
-    z-index: 1000;
+    position: relative;
 
     b {
-      @include font-size(h5);
+      @extend .flex-center;
+      @include font-size(h4);
       padding: 0.25em 0.5em;
       border-radius: 0.25em;
       font-weight: 600;
+      margin-right: 0.5em;
+      width: 5.5rem;
+      height: 5.5rem;
+      position: absolute;
+      left: -0.75rem;
+      top: -1rem;
+      border-radius: 5.5rem;
     }
 
-    @include device(mobileAndTablet) {
-      position: relative;
-      bottom: 0;
-      transform: translate(0);
-      left: 0;
-      width: 100%;
+    @include device(mobile) {
+      @include font-size(small);
     }
   }
 
@@ -314,20 +318,6 @@
     }
   }
 
-  &__copy {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent;
-    border: 0;
-    padding: 0;
-    color: inherit;
-    margin-left: 0.5rem;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 400ms easing(out-expo);
-  }
-
   &__inner {
     width: 50%;
 
@@ -339,10 +329,14 @@
   }
 
   &__demo {
-    width: 50%;
+    width: 100%;
     padding: 2.5rem;
     border-radius: 0.5em;
     border: 0.15em solid color(background);
+
+    &-outer {
+      width: 50%;
+    }
 
     &-validation {
       &.fail {
@@ -397,7 +391,10 @@
     }
 
     @include device(mobileAndTablet) {
-      width: 100%;
+      &-outer {
+        width: 100%;
+        margin-top: 2.5rem;
+      }
     }
   }
 

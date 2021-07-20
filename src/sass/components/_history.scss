@@ -1,0 +1,32 @@
+.history {
+  width: auto;
+  height: 100vh;
+  background-color: #000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  overflow-y: scroll;
+  padding: 1rem;
+
+  ul {
+    @extend .inline-list;
+
+    li {
+      margin-bottom: 1rem;
+
+      button {
+        @extend .flex-start;
+        padding: 0;
+        border: 0;
+        background-color: color(background);
+
+        > span {
+          display: inline-flex;
+          width: 3rem;
+          height: 3rem;
+        }
+      }
+    }
+  }
+}
