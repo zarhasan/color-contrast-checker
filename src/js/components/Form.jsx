@@ -120,14 +120,14 @@ const Form = () => {
   const [clipboard, copyToClipboard] = useCopyToClipboard();
 
   return (
-    <form
-      className="form"
-      action="/"
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-    >
-      <div className="form__inner">
+    <div className="form__outer">
+      <form
+        className="form"
+        action="/"
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
         <div className="form__actions">
           {shareLink && (
             <button
@@ -168,10 +168,10 @@ const Form = () => {
         <InputBackground />
         <SwapButton />
         <InputForeground />
-      </div>
+      </form>
 
       <DemoContent />
-    </form>
+    </div>
   );
 };
 

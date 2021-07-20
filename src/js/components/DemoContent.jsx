@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useRef } from "react";
 import { AppContext } from "../store";
 import { FiX, FiCheck, FiExternalLink, FiSave, FiShare2 } from "react-icons/fi";
 import tinycolor from "tinycolor2";
+import tippy from "tippy.js";
 
 const DemoContent = () => {
   const { backgroundColor, foregroundColor } = useContext(AppContext);
@@ -96,14 +97,44 @@ const DemoContent = () => {
 
 const Validation = ({ requirement, message, children }) => {
   const { contrastRatio, backgroundColor } = useContext(AppContext);
+  const validation = useRef(null);
+  const tooltip = useRef(null);
+  let tooltipInstance;
+
+  useLayoutEffect(() => {
+    tooltipInstance = tippy(validation.current, {
+      animation: "shift-away",
+      theme: "primary",
+      content(reference) {
+        return tooltip.current.innerHTML;
+      },
+      allowHTML: true,
+    });
+  });
+
+  useEffect(() => {
+    return () => {
+      tooltipInstance.destroy();
+    };
+  });
 
   return (
     <div
+      ref={validation}
       className={`form__demo-validation${
         contrastRatio > requirement ? " pass" : " fail"
       }`}
+      style={{
+        outlineColor: tinycolor
+          .mostReadable(backgroundColor, ["#000000", "#ffffff"])
+          .toHexString(),
+      }}
     >
       {children}
+
+      <div ref={tooltip} className="form__demo-tooltip">
+        <p>{message}</p>
+      </div>
     </div>
   );
 };

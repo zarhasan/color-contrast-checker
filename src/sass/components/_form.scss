@@ -1,12 +1,5 @@
 .form {
-  @extend .flex-start;
-  position: relative;
-  align-items: flex-start;
-  width: 100%;
-  background-color: color(text);
-  color: color(background);
-  padding: 10rem $page-padding;
-  z-index: 1000;
+  width: 50%;
 
   &__actions {
     @extend .flex-start;
@@ -318,13 +311,23 @@
     }
   }
 
-  &__inner {
-    width: 50%;
+  &__outer {
+    @extend .flex-start;
+    position: relative;
+    align-items: flex-start;
+    width: 100%;
+    background-color: color(text);
+    color: color(background);
+    padding: 10rem $page-padding;
+    z-index: 1000;
 
-    @include device(mobileAndTablet) {
-      width: 100%;
-      position: relative;
-      margin-bottom: 1.5rem;
+    @include device(tablet) {
+      padding: 5rem $page-padding 5rem;
+    }
+
+    @include device(mobile) {
+      padding: 2.5rem $page-padding 5rem;
+      justify-content: flex-start;
     }
   }
 
@@ -339,10 +342,21 @@
     }
 
     &-validation {
+      transition: all 250ms easing(out-expo);
+
       &.fail {
         text-decoration: line-through;
         text-decoration-thickness: 0.2em;
       }
+
+      &:hover {
+        outline: 0.15em dashed color(background);
+        outline-offset: 0.2em;
+      }
+    }
+
+    &-tooltip {
+      display: none;
     }
 
     h2 {
@@ -398,13 +412,10 @@
     }
   }
 
-  @include device(tablet) {
-    padding: 5rem $page-padding 5rem;
-  }
-
-  @include device(mobile) {
-    padding: 2.5rem $page-padding 5rem;
-    justify-content: flex-start;
+  @include device(mobileAndTablet) {
+    width: 100%;
+    position: relative;
+    margin-bottom: 1.5rem;
   }
 }
 

@@ -5,15 +5,13 @@ import { AppContext } from "../store";
 const Footer = () => {
   const { backgroundColor, foregroundColor } = useContext(AppContext);
 
-  let color = tinycolor
-    .mostReadable("#104861", [backgroundColor, foregroundColor])
-    .toHexString();
-
   return (
     <footer
       className="footer"
       style={{
-        "--text-decoration-color": color,
+        "--text-decoration-color": tinycolor
+          .mostReadable("#000000", [backgroundColor, foregroundColor])
+          .toHexString(),
       }}
     >
       <h2 className="footer__title">
