@@ -1,21 +1,10 @@
-import React, {
-  useEffect,
-  useState,
-  Fragment,
-  useRef,
-  useLayoutEffect,
-} from "react";
+import React, { useEffect, useState, Fragment, useRef } from "react";
 import tinycolor from "tinycolor2";
 import debounce from "lodash/debounce";
 import { motion, AnimatePresence } from "framer-motion";
 import { Listbox } from "@headlessui/react";
-import { MdColorize, MdContentCopy } from "react-icons/md";
-import {
-  useClickAway,
-  useCopyToClipboard,
-  useEffectOnce,
-  useToggle,
-} from "react-use";
+import { MdColorize } from "react-icons/md";
+import { useClickAway, useCopyToClipboard, useToggle } from "react-use";
 import { HexColorPicker } from "react-colorful";
 import { useContext } from "react";
 import { AppContext } from "../store";
@@ -50,14 +39,6 @@ const Input = (props) => {
   const picker = useRef(null);
   const inputOuter = useRef(null);
 
-  useClickAway(picker, (e) => {
-    if (inputOuter.current.contains(e.target)) {
-      return;
-    }
-
-    toggleColorPicker(false);
-  });
-
   function formatColor() {
     const convertedString = color.toString(colorFormat.name);
 
@@ -65,6 +46,14 @@ const Input = (props) => {
       inputColor.current.value = convertedString;
     }
   }
+
+  useClickAway(picker, (e) => {
+    if (inputOuter.current.contains(e.target)) {
+      return;
+    }
+
+    toggleColorPicker(false);
+  });
 
   useEffect(() => {
     if (editing === true) {
@@ -203,7 +192,6 @@ const Input = (props) => {
               return;
             }
 
-            setColor(colorValue);
             setColorPicker(colorValue.toHexString());
           }, 300)}
         />

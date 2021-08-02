@@ -62,8 +62,6 @@ const SwapButton = () => {
   const {
     backgroundColorInput,
     foregroundColorInput,
-    setBackgroundColor,
-    setForegroundColor,
     backgroundColorPicker,
     foregroundColorPicker,
     setBackgroundColorPicker,
@@ -88,13 +86,11 @@ const SwapButton = () => {
         const foregroundFormat = backgroundColorFormat;
 
         if (foregroundColor.isValid()) {
-          setBackgroundColor(foregroundColor);
           setBackgroundColorPicker(foregroundPicker);
           setForegroundColorFormat(foregroundFormat);
         }
 
         if (backgroundColor.isValid()) {
-          setForegroundColor(backgroundColor);
           setForegroundColorPicker(backgroundPicker);
           setBackgroundColorFormat(backgroundFormat);
         }
@@ -154,11 +150,11 @@ const Form = () => {
               toggleHistory(true);
             }}
           >
-            Save to history
+            Save
           </button>
 
           <button className="form__actions-history" onClick={toggleHistory}>
-            {showHistory ? "Hide" : "Show"} history
+            {showHistory ? "Hide" : "Show"} Saved
           </button>
         </div>
 

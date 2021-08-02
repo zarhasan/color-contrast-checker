@@ -85,6 +85,33 @@ ul {
   }
 }
 
+.button {
+  @include font-size(x-small);
+  font-weight: 500;
+  display: block;
+  background-color: transparent;
+  border: none;
+  text-underline-offset: 0.2em;
+  padding: 0;
+  background-color: lighten(color(text), 5%);
+  color: rgba(color(background), 0.7);
+  padding: 0.5em 1rem;
+  border-radius: 2.5rem;
+  transition: all 250ms easing(out-expo);
+
+  &:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+
+  &:hover {
+    color: color(background);
+  }
+}
 // Customize text selection
 ::selection {
   background: color(main);
