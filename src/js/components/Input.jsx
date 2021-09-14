@@ -57,18 +57,6 @@ const Input = (props) => {
 
   useEffect(() => {
     if (editing === true) {
-      formats.forEach(function (format, index) {
-        if (format.name === color.getFormat()) {
-          setColorFormat(formats[index]);
-        }
-      });
-    } else {
-      formatColor();
-    }
-  }, [color]);
-
-  useEffect(() => {
-    if (editing === true) {
       return;
     }
 
@@ -76,15 +64,23 @@ const Input = (props) => {
   }, [colorFormat]);
 
   useEffect(() => {
-    const pickedColor = tinycolor(colorPicker, {
-      format: colorFormat.name,
-    });
+    const args = {};
+
+    if (editing === false) {
+      args.format = colorFormat.name;
+    }
+
+    const pickedColor = tinycolor(colorPicker, args);
 
     if (!pickedColor.isValid()) {
       return;
     }
 
     setColor(pickedColor);
+
+    if (editing === false) {
+      formatColor();
+    }
   }, [colorPicker]);
 
   function enhanceContrast(e, targetContrast) {
@@ -193,6 +189,14 @@ const Input = (props) => {
             }
 
             setColorPicker(colorValue.toHexString());
+
+            if (editing === true) {
+              formats.forEach(function (format, index) {
+                if (format.name === colorValue.getFormat()) {
+                  setColorFormat(formats[index]);
+                }
+              });
+            }
           }, 300)}
         />
         <button
