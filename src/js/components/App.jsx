@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AppContext } from "../store";
-import { GoMarkGithub } from "react-icons/go";
-import { FiExternalLink } from "react-icons/fi";
+
 import { useFavicon, useLocalStorage, useToggle } from "react-use";
 import tinycolor from "tinycolor2";
 import Form from "./Form";
@@ -165,15 +164,6 @@ const App = () => {
   return (
     <AppContext.Provider value={context}>
       <Form />
-      <a
-        className="githubLink"
-        href="https://github.com/zarhasan/color-contrast-checker"
-        target="_blank"
-      >
-        <GoMarkGithub />
-        GitHub
-        <FiExternalLink />
-      </a>
       <Footer />
       <ColorHistory />
       <Toast />

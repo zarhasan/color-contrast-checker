@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import tinycolor from "tinycolor2";
 import { AppContext } from "../store";
+import { GoMarkGithub } from "react-icons/go";
+import { FiExternalLink } from "react-icons/fi";
 
 const Footer = () => {
   const { backgroundColor, foregroundColor } = useContext(AppContext);
@@ -51,6 +53,16 @@ const Footer = () => {
           Facebook
         </a>
       </p>
+
+      <a
+        className="githubLink"
+        href="https://github.com/zarhasan/color-contrast-checker"
+        target="_blank"
+      >
+        <GoMarkGithub />
+        GitHub
+        <FiExternalLink />
+      </a>
     </footer>
   );
 };
