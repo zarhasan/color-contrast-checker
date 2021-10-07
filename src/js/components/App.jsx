@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AppContext } from "../store";
-
 import { useFavicon, useLocalStorage, useToggle } from "react-use";
 import tinycolor from "tinycolor2";
 import Form from "./Form";
